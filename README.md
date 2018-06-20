@@ -1,4 +1,4 @@
-# Deblink
+# Delink
 
 KITRI 3rd Web Application Project
 
