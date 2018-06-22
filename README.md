@@ -1,4 +1,4 @@
 # Devlink
 
-KITRI 3rd Web Application Project
+KITRI 3rd Web Application Spring Project
 
