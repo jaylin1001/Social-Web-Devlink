@@ -1,19 +1,16 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Welcome to Mint-Office</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type='text/javascript' src="resources/js/bootstrap.js"></script>
-<link rel="stylesheet" href="resources/css/bootstrap.css">
-<link rel="stylesheet" href="resources/css/home/home.css">
-<script defer
-src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
-integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
-crossorigin="anonymous"></script>
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 $(function(){
 	var $idObj = $('input[type=text]'); //type속성이 text인 input객체를 dom트리에서 찾기
@@ -58,6 +55,12 @@ $(function(){
 	
 	
 <style>
+/** TIPS: 
+1. The carousel shouldn't be in any other div, like for example div with class container. 
+2. You can align image position in classes bg1, bg2, bg3 using css background-position.
+*/
+
+/* Carousel 100% Fullscreen */
 html, body {
 	height: 100%;
 	margin: 0;
@@ -87,29 +90,30 @@ html, body {
 }
 
 .carousel .carousel-inner .bg1 {
-	background-image: url('resources/img/login0');
+	background-image: url('resources/img/index/login0.png');
 	background-position: center top;
 }
 
 .carousel .carousel-inner .bg2 {
-	background-image: url('resources/img/login1');
+	background-image: url('resources/img/index/login1.png');
 	background-position: center center;
 }
 
 .carousel .carousel-inner .bg3 {
-	background-image: url('resources/img/login2');
+	background-image: url('resources/img/index/login2.jpeg');
 	background-position: center bottom;
 }
 
 .carousel .carousel-inner .bg4 {
-	background-image: url('resources/img/login3');
+	background-image: url('resources/img/index/login3.jpg');
 	background-position: center bottom;
 }
 
 .carousel .carousel-inner .bg5 {
-	background-image: url('resources/img/login4');
+	background-image: url('resources/img/index/login4.jpg');
 	background-position: center bottom;
 }
+
 
 
 /* modal start */
@@ -244,11 +248,11 @@ to {
 </style>
 </head>
 <body>
-	<%-- <c:if test="${!empty sessionScope.loginInfo}">
+	<c:if test="${!empty sessionScope.loginInfo}">
 		<script>
 			location.href="home.jsp";
 		</script>
-	</c:if> --%>
+	</c:if>
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
