@@ -1,11 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<title>DEVLINK</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>DEVLINK HOME</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type='text/javascript' src="resources/js/bootstrap.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <link rel="stylesheet" href="resources/css/home/home.css">
@@ -18,6 +18,7 @@
 <body>
 	<%@include file="devnav.jsp"%>
 	<div id="contents">
+	안녕하세요안녕하세요
 		<!-- 여기에 작성 -->
 		<!-- 여기에 작성 -->
 		<!-- 여기에 작성 -->

@@ -40,4 +40,9 @@ public class HomeController {
 	public String home() {
 		return "home/home";
 	}
+	
+	@RequestMapping(value="/viewmyprofile", method=RequestMethod.GET)
+	public String viewMyProfile() {
+		return "me/viewMyProfile";
+	}
 }
