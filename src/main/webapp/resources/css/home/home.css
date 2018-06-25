@@ -1,0 +1,51 @@
+@import
+	url('//cdn.rawgit.com/young-ha/webfont-archive/master/css/NanumSquare.css')
+	;
+
+@import
+	url('//cdn.rawgit.com/young-ha/webfont-archive/master/css/Godo.css');
+
+html, body {
+	height: 100%
+}
+
+body {
+	display: table;
+	width: 100%
+}
+
+footer {
+	display: table-row;
+	width: 100%;
+	height: 1px;
+	background-color: grey;
+	text-align: center;
+	color: #A4FFDE;
+}
+
+#contents {
+	display: table-row;
+	width: 100%;
+	height: 100%
+}
+
+#navbarColor01 li {
+	padding-left: 40px;
+} 
+
+aside, section {
+	float: right;
+}
+
+aside {
+	width: 15%;
+	height:100%;
+}
+
+section {
+	width: 85%;
+	height: 100%;
+}
+header, section, aside, footer, #contents {
+	box-sizing: border-box;
+}
