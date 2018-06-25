@@ -18,7 +18,7 @@ Bootstrap core CSS
 </head>
 <body> -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="home.jsp">Mint Office</a>
+		<a class="navbar-brand" href="home.jsp">DevLink</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarColor01" aria-controls="navbarColor01"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -27,9 +27,10 @@ Bootstrap core CSS
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item" id="home"><a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a></li>
-				<li class="nav-item" id="personal"><a class="nav-link" href="#">Personal</a></li>
-				<li class="nav-item" id="authorization"><a class="nav-link" href="#">Authorization</a></li>
-				<li class="nav-item" id="business"><a class="nav-link" href="#">Business</a></li>
+				<li class="nav-item" id="network"><a class="nav-link" href="#">Network</a></li>
+				<li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li>
+				<li class="nav-item" id="msg"><a class="nav-link" href="#">Messaging</a></li>
+	        	<li class="nav-item" id="me"><a class="nav-link" href="#">Me</a></li>
 	        	<li class="nav-item" id="logout"><a class="nav-link" href="#">Logout</a></li>
 			</ul>
 		</div>
