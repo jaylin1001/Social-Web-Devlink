@@ -13,15 +13,20 @@
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
 	integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
-	crossorigin="anonymous"></script>	
+	crossorigin="anonymous"></script>
+<style>
+.accInline{
+display:inline;
+}
+</style>
 </head>
 <body>
 	<%@include file="../home/devnav.jsp"%>
 	<div id="contents" style="text-align:center;">
-		<div style="background-color: white-space;height:100%;width: 15%;float: left;display: inline-block;">asdfasdf</div>
+		<div style="background-color: white-space;height:100%;width: 15%;float: left;display: inline-block;">Left Blank</div>
 		<div style="width:70%;float:none;display: inline-block">
 			<div class="card border-light" style="width:100%;">
-			<div class="card-header" style="padding:0px;border: none;"><img src="resources/img/me/profileback3.png" style="border: none;width:100%;"></div>
+			<div class="card-header" style="padding:0px;border: none;"><img src="resources/img/me/profileback4.png" style="border: none;width:100%;"></div>
 			    <div class="card border-light">
 				  <div class="card-header">Edit intro</div>
 				    <table>
@@ -119,8 +124,58 @@
 			  </div>
 			</div>
 			
+			<div class="card border-light mb-3" style="width:100%;display: inline-block;">
+			  <div class="card-header">Skills & Endorsement&ensp;&ensp;<a href="#"><i class="fas fa-plus"></i></a></div>
+			  <div class="card-body"style="text-align:left;">
+			    <div>
+				    <h6 class="card-title"><b>Microsoft Excel - Intermediate</b></h6>
+				    <h6 class="card-title"><b>Microsoft Word - Intermediate</b></h6>
+				    <h6 class="card-title"><b>Microsoft Powerpoint - Intermediate</b></h6>
+				    <h6 class="card-title"><b>C++ - Beginner</b></h6>
+				  	<h6 class="card-title"><b>Java - Beginner</b></h6>
+				  	<h6 class="card-title"><b>Oracle RDBMS - Beginner</b></h6>
+				  	<h6 class="card-title"><b>Javascript - Beginner</b></h6>
+			    </div>
+			  </div>
+			</div>
+			
+			<div class="card border-light mb-3" style="width:100%;display: inline-block;">
+			  <div class="card-header">Accomplishments&ensp;&ensp;<a href="#"><i class="fas fa-plus"></i></a></div>
+			  <div class="card-body"style="text-align:left;">
+			    <div>
+				    <h3 style="color:dodgerblue;" class="accInline">3</h3>&ensp;<h5 class="card-title accInline"><b>Languages</b></h5>
+				    <p>
+					English&ensp;Korean&ensp;Japanese
+				    </p>
+				    <hr>				    
+				    <h3 style="color:dodgerblue;" class="accInline">4</h3>&ensp;<h5 class="card-title accInline"><b>Honors & Awards</b></h5>
+				    <p>
+					LINC Capston project conference Special Prize<br>
+					CS Graduation project competition Grand Prize<br>
+					Capstone Project Grand Prize<br>
+					 Invent competitive exhibition Grand Prize
+				    </p>
+				    <hr>
+   				    <h3 style="color:dodgerblue;" class="accInline">1</h3>&ensp;<h5 class="card-title accInline"><b>Certification</b></h5>
+				    <p>
+					Certificate of Merit - Purdue Univiersity
+				    </p>
+				    <hr>
+				    <h3 style="color:dodgerblue;" class="accInline">1</h3>&ensp;<h5 class="card-title accInline"><b>Patents</b></h5>
+				    <p>
+					사용자 특성 및 여행지 특성에 기반한 여행지 추천 시스템 및 방법
+				    </p>
+				    <hr>
+				    <h3 style="color:dodgerblue;" class="accInline">2</h3>&ensp;<h5 class="card-title accInline"><b>Test Score</b></h5>
+				    <p>
+					TOEIC 840<br>
+					TOEIC Speaking Level 6
+				    </p>
+			    </div>
+			  </div>
+			</div>
 		</div>
-		<div style="background-color: white-space;height: 100%;width: 15%;float: right;display: inline-block;">bbcccccb</div>
+		<div style="background-color: white-space;height: 100%;width: 15%;float: right;display: inline-block;">Right Blank</div>
 	</div>
 	<%@include file="../home/devfoot.jsp"%>
 </body>
