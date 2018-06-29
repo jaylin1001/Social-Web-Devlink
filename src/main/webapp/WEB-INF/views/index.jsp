@@ -17,6 +17,8 @@ $(function(){
 	var itemValue = localStorage.getItem('id');
 	var $chkObj = $('input[type=checkbox]');
 	$idObj.val(itemValue);
+	
+	
 	$('form').submit(function(){
 		var idValue = $idObj.val();
 		//chkObj가 체크된 경우에는
@@ -51,6 +53,16 @@ $(function(){
 	});
 	
 });
+
+function login(){
+	var remember=document.getElementById('remember');
+	if(remember.checked==true){
+		  localStorage.setItem('id', idValue);		
+	}else{
+		  localStorage.removeItem('id');		
+	}
+	document.getElementById("loginForm").submit();
+}
 </script>	
 	
 	
@@ -289,7 +301,7 @@ to {
 </body>
 
 <div id="id01" class="modal">
-	<form class="modal-content animate" action="/action_page.php">
+	<form class="modal-content animate" action="/login.do" id="loginForm">
 		<div class="imgcontainer">
 			<span onclick="document.getElementById('id01').style.display='none'"
 				class="close warningx" title="Close Modal">&times;</span> <img
@@ -303,8 +315,8 @@ to {
 			<input type="text" placeholder="Enter Username" name="id" required>
 			<label for="psw"><b>Password</b></label>
 			<input type="password" placeholder="Enter Password" name="pwd" required>
-			<button class="btn btn-primary" type="submit">Login</button>
-			<label> <input type="checkbox" checked="checked" name="remember"> Remember me</label>
+			<button class="btn btn-primary" type="button" onclick="login()">Login</button>
+			<label> <input type="checkbox" checked="checked" id="remember"> Remember me</label>
 		</div>
 		
 		<div class="container" style="background-color: #f1f1f1">

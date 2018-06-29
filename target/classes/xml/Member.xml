@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.devlink.me.model.MemberMapper">
+ 	<resultMap id="TSResult" type="com.devlink.dao.TestScore">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_contents" property="score" />
+	</resultMap>
+ 	<resultMap id="SkillResult" type="com.devlink.dao.Skill">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_contents" property="level" />
+	</resultMap>
+ 	<resultMap id="LangResult" type="com.devlink.dao.Language">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+	</resultMap>
+ 	<resultMap id="PatentResult" type="com.devlink.dao.Patent">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title"/>
+		<result column="pr_contents" property="contents" />
+	</resultMap>
+ 	<resultMap id="HonorResult" type="com.devlink.dao.Honor">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_contents" property="level" />
+		<result column="pr_start" property="year" />		
+	</resultMap>
+ 	<resultMap id="ExpResult" type="com.devlink.dao.Exp">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_start" property="start" />
+		<result column="pr_end" property="end" />
+		<result column="duration" property="duration" />
+		<result column="pr_group" property="group"/>
+		<result column="pr_place" property="place" />
+		<result column="pr_contents" property="contents" />
+	</resultMap>
+ 	<resultMap id="EduResult" type="com.devlink.dao.Member">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_place" property="degree" />
+		<result column="pr_contents" property="contents" />
+		<result column="pr_start" property="start" />
+		<result column="pr_end" property="end" />
+	</resultMap>
+	<resultMap id="CertiResult" type="com.devlink.dao.Member">
+		<result column="pr_no" property="no" />
+		<result column="pr_title" property="title" />
+		<result column="pr_contents" property="contents" />
+	</resultMap>
+	
+	<resultMap id="MemberResult" type="com.devlink.dao.Member">
+		<result column="m_no" property="m_no" />
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="joindate" property="joindate" />
+		<result column="outdate" property="outdate" />
+		<result column="name" property="name" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="headline" property="headline" />
+	</resultMap>
+
+	<select id="selectEduById" resultMap="MemberResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectCertiById" resultMap="CertiResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectExpById" resultMap="ExpResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectHonorById" resultMap="HonorResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectLangById" resultMap="LangResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectPatentById" resultMap="PatentResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectSkillById" resultMap="SkillResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+	<select id="selectTSById" resultMap="TSResult" parameterType="String">
+		SELECT * FROM profile WHERE id= #{id}
+	</select>
+</mapper>
