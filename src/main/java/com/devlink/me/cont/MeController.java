@@ -2,6 +2,7 @@ package com.devlink.me.cont;
 
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -15,19 +16,22 @@ import com.devlink.dao.Exp;
 import com.devlink.dao.Honor;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
+import com.devlink.dao.Patent;
 import com.devlink.dao.Skill;
 import com.devlink.dao.TestScore;
 import com.devlink.me.service.Service;
 
 @Controller
 public class MeController {
+	@Resource(name="meService")
 	Service service;
-	@RequestMapping(value="/viewmyprofile", method=RequestMethod.GET)
+	
+	/*@RequestMapping(value="/viewmyprofile", method=RequestMethod.GET)
 	public String viewMyProfile2() {
 		return "me/viewMyProfile";
-	}
+	}*/
 
-	@RequestMapping(value="/viewmyprofile", method=RequestMethod.GET)
+	@RequestMapping(value="/viewmyprofile.do", method=RequestMethod.GET)
 	public ModelAndView viewIntro(HttpServletRequest req) {
 		
 		ModelAndView mav = new ModelAndView("me/viewMyProfile");
@@ -40,6 +44,7 @@ public class MeController {
 		ArrayList<Honor> honor=service.getHonor(id);
 		ArrayList<Language> lang=service.getLang(id);
 		ArrayList<Skill> skill=service.getSkill(id);
+		ArrayList<Patent> patent =service.getPatent(id);
 		ArrayList<TestScore> ts = service.getTestScore(id);
 		mav.addObject("m", m);
 		mav.addObject("certi", certi);
@@ -48,9 +53,97 @@ public class MeController {
 		mav.addObject("honor", honor);
 		mav.addObject("lang", lang);
 		mav.addObject("skill", skill);
+		mav.addObject("patent", patent);
 		mav.addObject("ts", ts);
 		
 		return mav;
 	}
 	
+	@RequestMapping(value="/editintro.do", method=RequestMethod.POST)
+	public String editIntro(HttpServletRequest req, Member m){
+		String id="id1";
+		m.setId(id);
+		service.editIntro(m);
+		return "result";
+	}
+	
+	@RequestMapping(value="/addexp.do", method=RequestMethod.POST)
+	public ModelAndView addExp(HttpServletRequest req, Exp e){
+		ModelAndView mav = new ModelAndView("me/addExp");
+		String id="id1";
+		e.setNo(service.getNo(id));
+		Exp exp=service.addExp(e);
+		mav.addObject("exp",exp);
+		return mav;
+	}
+
+	@RequestMapping(value="/addedu.do", method=RequestMethod.POST)
+	public ModelAndView addEdu(HttpServletRequest req, Education e){
+		ModelAndView mav = new ModelAndView("me/addEdu");
+		String id="id1";
+		e.setNo(service.getNo(id));
+		Education edu=service.addEdu(e);
+		mav.addObject("edu",edu);
+		return mav;
+	}
+	
+	@RequestMapping(value="/addskill.do", method=RequestMethod.POST)
+	public ModelAndView addSkill(HttpServletRequest req, Skill s){
+		ModelAndView mav = new ModelAndView("me/addSkill");
+		String id="id1";
+		s.setNo(service.getNo(id));
+		Skill skill=service.addSkill(s);
+		mav.addObject("skill",skill);
+		return mav;
+	}
+	
+	@RequestMapping(value="/addlang.do", method=RequestMethod.POST)
+	public ModelAndView addLang(HttpServletRequest req, Language l){
+		ModelAndView mav = new ModelAndView("me/addLang");
+		String id="id1";
+		l.setNo(service.getNo(id));
+		Language lang=service.addLang(l);
+		mav.addObject("lang",lang);
+		return mav;
+	}
+	
+	@RequestMapping(value="/addhonor.do", method=RequestMethod.POST)
+	public ModelAndView addHonor(HttpServletRequest req, Honor h){
+		ModelAndView mav = new ModelAndView("me/addHonor");
+		String id="id1";
+		h.setNo(service.getNo(id));
+		Honor honor=service.addHonor(h);
+		mav.addObject("honor",honor);
+		return mav;
+	}
+	@RequestMapping(value="/addcerti.do", method=RequestMethod.POST)
+	public ModelAndView addCerti(HttpServletRequest req, Certification c){
+		ModelAndView mav = new ModelAndView("me/addCerti");
+		String id="id1";
+		c.setNo(service.getNo(id));
+		Certification certi=service.addCerti(c);
+		mav.addObject("certi",certi);
+		return mav;
+	}
+	
+	@RequestMapping(value="/addpatent.do", method=RequestMethod.POST)
+	public ModelAndView addPatent(HttpServletRequest req, Patent p){
+		ModelAndView mav = new ModelAndView("me/addPatent");
+		String id="id1";
+		p.setNo(service.getNo(id));
+		Patent patent=service.addPatent(p);
+		mav.addObject("patent",patent);
+		return mav;
+	}
+	@RequestMapping(value="/addts.do", method=RequestMethod.POST)
+	public ModelAndView addTS(HttpServletRequest req, TestScore t){
+		ModelAndView mav = new ModelAndView("me/addTs");
+		String id="id1";
+		System.out.println(t);
+		t.setNo(service.getNo(id));
+		TestScore testScore=service.addTs(t);
+		System.out.println(testScore);
+		mav.addObject("testScore",testScore);
+		return mav;
+	}
 }

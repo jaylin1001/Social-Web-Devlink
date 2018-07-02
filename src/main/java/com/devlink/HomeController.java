@@ -35,6 +35,7 @@ public class HomeController {
 	public String msg() {
 		return "me/viewMyProfile";
 	}
+	
 	@RequestMapping(value="/me", method=RequestMethod.GET)
 	public String me() {
 		return "me/viewMyProfile";
