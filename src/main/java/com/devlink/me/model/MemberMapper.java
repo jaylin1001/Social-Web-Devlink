@@ -7,6 +7,7 @@ import com.devlink.dao.Certification;
 import com.devlink.dao.Education;
 import com.devlink.dao.Exp;
 import com.devlink.dao.Honor;
+import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
@@ -41,4 +42,7 @@ public interface MemberMapper {
 	Patent selectPatent(String no);
 	void insertTS(TestScore t);
 	TestScore selectTS(String no);
+	void deletePro(String no);
+	void insertPath(Img img);
+	HashMap<String, String> selectPath(String id);
 }

@@ -12,6 +12,7 @@ import com.devlink.dao.Certification;
 import com.devlink.dao.Education;
 import com.devlink.dao.Exp;
 import com.devlink.dao.Honor;
+import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
@@ -148,5 +149,23 @@ public class MeService implements Service {
 		mapper = sqlSession.getMapper(MemberMapper.class);
 		mapper.insertTS(t);
 		return mapper.selectTS(t.getNo());
+	}
+
+	@Override
+	public void delPro(String no) {
+		mapper = sqlSession.getMapper(MemberMapper.class);
+		mapper.deletePro(no);
+	}
+
+	@Override
+	public void addPath(Img img) {
+		mapper = sqlSession.getMapper(MemberMapper.class);
+		mapper.insertPath(img);
+	}
+
+	@Override
+	public HashMap<String, String> getPath(String id) {
+		mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectPath(id);
 	}
 }

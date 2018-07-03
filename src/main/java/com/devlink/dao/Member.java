@@ -11,6 +11,7 @@ public class Member {
 	private String email;
 	private String phone;
 	private String headline;
+	private String path;
 	public String getM_no() {
 		return m_no;
 	}
@@ -71,8 +72,20 @@ public class Member {
 	public void setHeadline(String headline) {
 		this.headline = headline;
 	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	@Override
+	public String toString() {
+		return "Member [m_no=" + m_no + ", id=" + id + ", pwd=" + pwd + ", joindate=" + joindate + ", outdate="
+				+ outdate + ", name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone
+				+ ", headline=" + headline + ", path=" + path + "]";
+	}
 	public Member(String m_no, String id, String pwd, String joindate, String outdate, String name, String address,
-			String email, String phone, String headline) {
+			String email, String phone, String headline, String path) {
 		super();
 		this.m_no = m_no;
 		this.id = id;
@@ -84,15 +97,10 @@ public class Member {
 		this.email = email;
 		this.phone = phone;
 		this.headline = headline;
+		this.path = path;
 	}
 	public Member() {
 		super();
-	}
-	@Override
-	public String toString() {
-		return "Member [m_no=" + m_no + ", id=" + id + ", pwd=" + pwd + ", joindate=" + joindate + ", outdate="
-				+ outdate + ", name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone
-				+ ", headline=" + headline + "]";
 	}
 	
 }

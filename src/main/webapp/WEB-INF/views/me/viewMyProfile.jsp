@@ -44,14 +44,30 @@ display:inline;
 				  <div class="card-header">Edit intro</div>
 				    <table>
 				    	<tr>
-				    		<td><img src="resources/img/me/propic.jpg" style="float:left;max-height: 60%;"></td>
+				    		<td>
+				    		<c:if test="${empty m.path}"><img src="resources/img/me/default.png" style="float:left;max-height: 60%;"></c:if>
+				    		<c:if test="${not empty m.path}"><img src="resources/img/profile/${m.path}" style="float:left;max-height: 60%;"></c:if>
+				    		</td>
 				    		<td colspan="2">
 								  <div class="card-body">
 							    	<h4 class="card-title" style="padding-top: 10px;"><span id="introname">${m.name}</span>&ensp;<a href="javascript:openEditIntroModal();"><i class="fas fa-edit"></i></a></h4>
 					    			<p class="card-text"><span id="introhl">${m.headline}</span></p>
 					    			<p class="card-text" style="color:#707070"><span id="introadd">${m.address }</span></p>
 					    			<p class="card-text" style="color:#707070"><span id="introemail">${m.email }</span></p>
-								  </div>
+					    			<form action="${pageContext.request.contextPath }/proform.do" method="post" enctype="multipart/form-data">
+										<div class="form-group">
+										    <div class="input-group mb-3">
+										      <div class="custom-file">
+												<input type="file" class="custom-file-input" id="proPic" name="file" accept="image/*" required>
+										        <label class="custom-file-label" for="inputGroupFile02" id="picLabel">Choose profile image</label>
+										      </div>
+										      <div class="input-group-append">												
+        										<button type="submit"class="input-group-text">Upload</button>
+										      </div>
+										    </div>
+										 </div>
+									</form>
+								 </div>
 				    		</td>
 				    		<td>
 				    		  <ul class="list-group list-group-flush">
@@ -73,8 +89,9 @@ display:inline;
 			<div class="card border-light mb-3" style="width:100%">
 			  <div class="card-body">
 			    <h5 class="card-text">Profile Strength</h5>
+			    <span>${st}%</span>
 					<div class="progress">
-					  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+						<div class="progress-bar progress-bar-striped progress-bar-animated${color}" role="progressbar" style="width:${st }%;" aria-valuenow="${st }" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 			  </div>
 			</div>
@@ -99,7 +116,7 @@ display:inline;
 				<div id="expDiv">
 					<c:if test="${not empty exp }">
 						<c:forEach var="e" items="${exp }">
-							    <h5 class="card-title"><b>${e.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="delExp.do?no=${e.no}"><i class="fas fa-times"></i></a></h5>
+							    <h5 class="card-title"><b>${e.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${e.no}"><i class="fas fa-times"></i></a></h5>
 							    <p>
 							    Company Name : ${e.group }<br>
 							    Date Employed : ${e.start }<c:if test ="${not empty e.end }">&nbsp;– ${e.end }</c:if><br>
@@ -119,7 +136,7 @@ display:inline;
 				<div id="eduDiv">
 				<c:if test="${not empty edu }">
 					<c:forEach var="e" items="${edu }">
-						    <h5 class="card-title"><b>${e.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="#"><i class="fas fa-times"></i></a></h5>
+						    <h5 class="card-title"><b>${e.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${e.no}"><i class="fas fa-times"></i></a></h5>
 						    <p>
 								${e.degree }'s Degree, ${e.contents }<br>
 								${e.start }<c:if test ="${not empty e.end }">&nbsp;– ${e.end }</c:if><br>
@@ -137,7 +154,7 @@ display:inline;
 				<div id="skillDiv">
 					<c:if test="${not empty skill }">
 						<c:forEach var="s" items="${skill }">
-					    	<h6 class="card-title"><b>${s.title } - ${s.level }</b>&ensp;<a href="#"><i class="fas fa-times"></i></a></h6>
+					    	<h6 class="card-title"><b>${s.title } - ${s.level }</b>&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${s.no}"><i class="fas fa-times"></i></a></h6>
 						</c:forEach>
 					</c:if>
 				</div>
@@ -153,7 +170,7 @@ display:inline;
 				    	<h3 style="color:dodgerblue;" class="accInline" id="langN">${fn:length(lang)}</h3>&ensp;<h5 class="card-title accInline"><b>Languages</b></h5>
 				    	<p>
 							<c:forEach var="l" items="${lang }">
-								${l.title}&ensp;<a href="#"><i class="fas fa-times"></i></a>&ensp;&ensp;
+								${l.title}&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${l.no}"><i class="fas fa-times"></i></a>&ensp;&ensp;
 							</c:forEach>
 						</p>
 					</c:if>
@@ -164,7 +181,7 @@ display:inline;
 				    	<h3 style="color:dodgerblue;" class="accInline" id="honorN">${fn:length(honor)}</h3>&ensp;<h5 class="card-title accInline"><b>Honors & Awards</b></h5>
 				    	<p>
 							<c:forEach var="h" items="${honor }">
-								${h.title } - ${h.level } - ${h.year }&ensp;<a href="#"><i class="fas fa-times"></i></a><br>
+								${h.title } - ${h.level } - ${h.year }&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${h.no}"><i class="fas fa-times"></i></a><br>
 							</c:forEach>	
 						</p>
 					</c:if>
@@ -175,7 +192,7 @@ display:inline;
 	   				    <h3 style="color:dodgerblue;" class="accInline" id="certiN">${fn:length(certi)}</h3>&ensp;<h5 class="card-title accInline"><b>Certification</b></h5>
 	   				    <p>
 							<c:forEach var="c" items="${certi }">
-								${c.title } - ${c.contents}&ensp;<a href="#"><i class="fas fa-times"></i></a><br>
+								${c.title } - ${c.contents}&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${c.no}"><i class="fas fa-times"></i></a><br>
 							</c:forEach>
 						</p>
 					</c:if>
@@ -186,7 +203,7 @@ display:inline;
 					    <h3 style="color:dodgerblue;" class="accInline" id="patentN">${fn:length(patent)}</h3>&ensp;<h5 class="card-title accInline"><b>Patents</b></h5>
 					    <p>
 							<c:forEach var="p" items="${patent }">
-								${p.title } - ${p.contents}&ensp;<a href="#"><i class="fas fa-times"></i></a><br>
+								${p.title } - ${p.contents}&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${p.no}"><i class="fas fa-times"></i></a><br>
 							</c:forEach>
 						</p>
 					</c:if>
@@ -197,7 +214,7 @@ display:inline;
 					    <h3 style="color:dodgerblue;" class="accInline" id="tsN">${fn:length(ts)}</h3>&ensp;<h5 class="card-title accInline"><b>Test Score</b></h5>
 					    <p>
 							<c:forEach var="t" items="${ts }">
-								${t.title } - ${t.score}&ensp;<a href="#"><i class="fas fa-times"></i></a><br>
+								${t.title } - ${t.score}&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${t.no}"><i class="fas fa-times"></i></a><br>
 							</c:forEach>
 						</p>
 					</c:if>

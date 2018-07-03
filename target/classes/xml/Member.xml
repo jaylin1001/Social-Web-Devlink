@@ -62,10 +62,14 @@
 		<result column="address" property="address" />
 		<result column="email" property="email" />
 		<result column="phone" property="phone" />
-		<result column="headline" property="headline" />
+		<result column="headline" property="headline"/>
+		<result column="path" property="path"/>
 	</resultMap>
 	<resultMap id="memberNo" type="java.util.HashMap">
         <result javaType="java.lang.String" column="m_no" property="no"/>
+	</resultMap>
+	<resultMap id="picPath" type="java.util.HashMap">
+        <result javaType="java.lang.String" column="path" property="path"/>
 	</resultMap>
 	<select id="selectNoById" resultMap="memberNo" parameterType="String">
 		SELECT m_no FROM member WHERE id=#{id}
@@ -104,48 +108,57 @@
 		INSERT INTO profile (pr_no,pr_kind,pr_title,pr_start,pr_end,pr_group,pr_place,pr_contents,m_no) VALUES(pr_seq.nextval,1,#{title},#{start},#{end, jdbcType=DATE},#{group},#{place},#{contents},#{no})		
 	</insert>
 	<select id="selectExp" resultMap="ExpResult" parameterType="String">
-		SELECT * FROM (SELECT p.pr_no,p.pr_title,TO_CHAR(p.pr_start,'YYYY.MM.DD') pr_start, TO_CHAR(p.pr_end,'YYYY.MM.DD') pr_end,p.pr_group,p.pr_place,p.pr_contents,(p.pr_end-p.pr_start) duration FROM profile p, member m WHERE p.m_no=m.m_no AND p.m_no= #{no} ORDER BY p.pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no,pr_title,TO_CHAR(pr_start,'YYYY.MM.DD') pr_start, TO_CHAR(pr_end,'YYYY.MM.DD') pr_end,pr_group,pr_place,pr_contents,(pr_end-pr_start) duration FROM profile WHERE m_no= #{no} AND pr_kind=1 ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertEdu" parameterType="com.devlink.dao.Education">
 		INSERT INTO profile (pr_no,pr_kind,pr_title,pr_place, pr_contents, pr_start, pr_end, m_no) VALUES(pr_seq.nextval,2,#{title},#{degree},#{contents},#{start},#{end, jdbcType=DATE},#{no})
 	</insert>
 	<select id="selectEdu" resultMap="EduResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title,TO_CHAR(pr_start,'YYYY.MM.DD') pr_start, TO_CHAR(pr_end,'YYYY.MM.DD') pr_end, pr_place, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title,TO_CHAR(pr_start,'YYYY.MM.DD') pr_start, TO_CHAR(pr_end,'YYYY.MM.DD') pr_end, pr_place, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertSkill" parameterType="com.devlink.dao.Skill">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, pr_contents, m_no) VALUES(pr_seq.nextval,3,#{title},#{level},#{no})
 	</insert>
 	<select id="selectSkill" resultMap="SkillResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertLang" parameterType="com.devlink.dao.Language">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, m_no) VALUES(pr_seq.nextval,4,#{title},#{no})
 	</insert>
 	<select id="selectLang" resultMap="LangResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertHonor" parameterType="com.devlink.dao.Honor">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, pr_contents, pr_start, m_no) VALUES(pr_seq.nextval,5,#{title},#{level},#{year},#{no})
 	</insert>
 	<select id="selectHonor" resultMap="HonorResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title, pr_contents, TO_CHAR(pr_start,'YYYY.MM.DD') pr_start FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title, pr_contents, TO_CHAR(pr_start,'YYYY.MM.DD') pr_start FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertCerti" parameterType="com.devlink.dao.Certification">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, pr_contents, m_no) VALUES(pr_seq.nextval,6,#{title},#{contents},#{no})
 	</insert>
 	<select id="selectCerti" resultMap="CertiResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertPatent" parameterType="com.devlink.dao.Patent">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, pr_contents, m_no) VALUES(pr_seq.nextval,7,#{title},#{contents},#{no})
 	</insert>
 	<select id="selectPatent" resultMap="PatentResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
 	</select>
 	<insert id="insertTS" parameterType="com.devlink.dao.TestScore">
 		INSERT INTO profile (pr_no, pr_kind, pr_title, pr_contents, m_no) VALUES(pr_seq.nextval,8,#{title},#{score},#{no})
 	</insert>
 	<select id="selectTS" resultMap="TSResult" parameterType="String">
-		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY pr_no DESC) WHERE ROWNUM=1 
+		SELECT * FROM (SELECT pr_no, pr_title, pr_contents FROM profile p WHERE m_no= #{no} ORDER BY TO_NUMBER(pr_no) DESC) WHERE ROWNUM=1 
+	</select>
+	<delete id="deletePro" parameterType="String">
+		DELETE profile WHERE pr_no=#{no}
+	</delete>
+	<update id="insertPath" parameterType="com.devlink.dao.Img">
+		UPDATE member SET path=#{path} WHERE m_no=#{no}
+	</update>
+	<select id="selectPath" resultMap="picPath" parameterType="String">
+		SELECT path FROM member WHERE id=#{id}
 	</select>
 </mapper>

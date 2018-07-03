@@ -1,4 +1,9 @@
 $(function() {  
+	$('#proPic').change(function() {
+		var str = $(this).val();
+		$('#picLabel').text(str.substring(12));
+	});
+	
 	$('#expCK').click(function() {
         if ($('#expEnd').attr('disabled')) {
         	$('#expEnd').removeAttr('disabled');
@@ -158,6 +163,9 @@ function addAcc(){
 		if($('#langN').val()==undefined){
 			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="langN">${fn:length(lang)}</h3>&ensp;<h5 class="card-title accInline"><b>Languages</b></h5><p>';
 			foot='</p>';
+		}else{
+			var num=Number($('#langN').text())+1;
+			$('#langN').text(num);
 		}
 	}else if(accVal=='Honor & Award'){
 		console.log('Honor');
@@ -166,6 +174,9 @@ function addAcc(){
 		if($('#honorN').val()==undefined){
 			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="honorN">${fn:length(honor)}</h3>&ensp;<h5 class="card-title accInline"><b>Honors & Awards</b></h5><p>';
 			foot='</p>';
+		}else{
+			var num=Number($('#honorN').text())+1;
+			$('#honorN').text(num);
 		}
 	}else if(accVal=='Certification'){
 		console.log('Certi');
@@ -174,6 +185,9 @@ function addAcc(){
 		if($('#certiN').val()==undefined){
 			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="certiN">${fn:length(certi)}</h3>&ensp;<h5 class="card-title accInline"><b>Certification</b></h5><p>';
 			foot='</p>';
+		}else{
+			var num=Number($('#certiN').text())+1;
+			$('#certiN').text(num);
 		}
 	}else if(accVal=='Patent'){
 		console.log('Patent');
@@ -182,6 +196,9 @@ function addAcc(){
 		if($('#patentN').val()==undefined){
 			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="patentN">${fn:length(patent)}</h3>&ensp;<h5 class="card-title accInline"><b>Patents</b></h5><p>';
 			foot='</p>';
+		}else{
+			var num=Number($('#patentN').text())+1;
+			$('#patentN').text(num);
 		}
 	}else if(accVal=='Test Score'){
 		console.log('TS');
@@ -190,6 +207,9 @@ function addAcc(){
 		if($('#tsN').val()==undefined){
 			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="tsN">${fn:length(ts)}</h3>&ensp;<h5 class="card-title accInline"><b>Test Score</b></h5><p>';
 			foot='</p>';
+		}else{
+			var num=Number($('#tsN').text())+1;
+			$('#tsN').text(num);
 		}
 	}else{
 		return;

@@ -1,11 +1,13 @@
 package com.devlink.me.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.devlink.dao.Certification;
 import com.devlink.dao.Education;
 import com.devlink.dao.Exp;
 import com.devlink.dao.Honor;
+import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
@@ -32,4 +34,7 @@ public interface Service {
 	Certification addCerti(Certification c);
 	Patent addPatent(Patent p);
 	TestScore addTs(TestScore t);
+	void delPro(String no);
+	void addPath(Img img);
+	HashMap<String, String> getPath(String id);
 }

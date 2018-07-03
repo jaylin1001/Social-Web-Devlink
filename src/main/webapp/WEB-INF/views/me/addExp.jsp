@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
- <h5 class="card-title"><b>${exp.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="#"><i class="fas fa-times"></i></a></h5>
+ <h5 class="card-title"><b>${exp.title }</b>&ensp;<a href="#"><i class="fas fa-edit"></i></a>&ensp;<a href="${pageContext.request.contextPath}/delpro.do?no=${exp.no}"><i class="fas fa-times"></i></a></h5>
     <p>
     Company Name : ${exp.group }<br>
 	Date Employed : ${exp.start }<c:if test ="${not empty exp.end }">&nbsp;– ${exp.end }</c:if><br>

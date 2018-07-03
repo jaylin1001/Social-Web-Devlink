@@ -51,4 +51,6 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg name="sqlSessionFactory"	ref="sqlSessionFactory" />
 	</beans:bean>
+	<!-- 파일리졸버 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans:beans>
