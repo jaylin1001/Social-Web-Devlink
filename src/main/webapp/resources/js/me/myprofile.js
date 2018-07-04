@@ -161,7 +161,7 @@ function addAcc(){
 		statement='addlang.do';
 		place='langDiv';
 		if($('#langN').val()==undefined){
-			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="langN">${fn:length(lang)}</h3>&ensp;<h5 class="card-title accInline"><b>Languages</b></h5><p>';
+			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="langN">1</h3>&ensp;<h5 class="card-title accInline"><b>Languages</b></h5><p>';
 			foot='</p>';
 		}else{
 			var num=Number($('#langN').text())+1;
@@ -172,7 +172,7 @@ function addAcc(){
 		statement='addhonor.do';
 		place='honorDiv';
 		if($('#honorN').val()==undefined){
-			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="honorN">${fn:length(honor)}</h3>&ensp;<h5 class="card-title accInline"><b>Honors & Awards</b></h5><p>';
+			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="honorN">1</h3>&ensp;<h5 class="card-title accInline"><b>Honors & Awards</b></h5><p>';
 			foot='</p>';
 		}else{
 			var num=Number($('#honorN').text())+1;
@@ -183,7 +183,7 @@ function addAcc(){
 		statement='addcerti.do';
 		place='certiDiv';
 		if($('#certiN').val()==undefined){
-			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="certiN">${fn:length(certi)}</h3>&ensp;<h5 class="card-title accInline"><b>Certification</b></h5><p>';
+			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="certiN">1</h3>&ensp;<h5 class="card-title accInline"><b>Certification</b></h5><p>';
 			foot='</p>';
 		}else{
 			var num=Number($('#certiN').text())+1;
@@ -194,7 +194,7 @@ function addAcc(){
 		statement='addpatent.do';
 		place='patentDiv';
 		if($('#patentN').val()==undefined){
-			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="patentN">${fn:length(patent)}</h3>&ensp;<h5 class="card-title accInline"><b>Patents</b></h5><p>';
+			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="patentN">1</h3>&ensp;<h5 class="card-title accInline"><b>Patents</b></h5><p>';
 			foot='</p>';
 		}else{
 			var num=Number($('#patentN').text())+1;
@@ -205,7 +205,7 @@ function addAcc(){
 		statement='addts.do';
 		place='tsDiv';
 		if($('#tsN').val()==undefined){
-			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="tsN">${fn:length(ts)}</h3>&ensp;<h5 class="card-title accInline"><b>Test Score</b></h5><p>';
+			head='<hr><h3 style="color:dodgerblue;" class="accInline" id="tsN">1</h3>&ensp;<h5 class="card-title accInline"><b>Test Score</b></h5><p>';
 			foot='</p>';
 		}else{
 			var num=Number($('#tsN').text())+1;
@@ -222,6 +222,10 @@ function addAcc(){
         success:function(data){
         	$('#'+place).append(head+data+foot);
             $("#addAcc").modal('toggle');
+            probarUpdate2($('#proBar').attr('aria-valuenow'));
+            /*var val=probarUpdate($('#proBar').attr('aria-valuenow'));
+            console.log(val);
+			$(".progress").html(val);*/
         },
         error:function(e){
             $("#addAcc").modal('toggle');
@@ -279,4 +283,47 @@ function skillClose(){
 function accClose(){
 	$('#addAccForm')[0].reset();
 	$('#accBody').html('');
+}
+function probarUpdate(p){
+	var html;
+	var update=Number(p)+12;
+	if(p>86) {
+		html="<div id='proBar' class='progress-bar progress-bar-striped progress-bar-animated bg-success' role='progressbar' style='width:100;' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>";
+	}else if(p>61) {
+		html="<div id='proBar' class='progress-bar progress-bar-striped progress-bar-animated bg-info' role='progressbar' style='width:"+update+" aria-valuenow="+update+" aria-valuemin='0' aria-valuemax='100'></div>";
+	}else if(p>36) {
+		html="<div id='proBar' class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' style='width:"+update+" aria-valuenow="+update+" aria-valuemin='0' aria-valuemax='100'></div>";
+	}else if(p>11) {
+		html="<div id='proBar' class='progress-bar progress-bar-striped progress-bar-animated bg-warning' role='progressbar' style='width:"+update+" aria-valuenow="+update+" aria-valuemin='0' aria-valuemax='100'></div>";
+	}else {
+		html="<div id='proBar' class='progress-bar progress-bar-striped progress-bar-animated bg-danger' role='progressbar' style='width:"+update+" aria-valuenow="+update+" aria-valuemin='0' aria-valuemax='100'></div>";
+	}
+	return html;
+}
+function probarUpdate2(p){
+	var html;
+	var update=Number(p)+12;
+	if(p>85) {
+		$('#proBar').removeClass('bg-info');
+		$('#proBar').addClass('bg-success');
+		$('#proBar').attr('ara-valuenow',100);
+		$('#proBar').attr('style','width:100%;');
+		$('#proBarP').text('100%');
+	}else if(p>61) {
+		$('#proBar').addClass('bg-info');
+		$('#proBar').attr('ara-valuenow',update);
+		$('#proBar').attr('style','width:'+update+'%;');
+		$('#proBarP').text(update+'%');
+	}else if(p>36) {
+		$('#proBar').removeClass('bg-warning');
+		$('#proBar').attr('ara-valuenow',update);
+		$('#proBar').attr('style','width:'+update+'%;');
+		$('#proBarP').text(update+'%');
+	}else if(p>11) {
+		$('#proBar').removeClass('bg-danger');
+		$('#proBar').addClass('bg-warning');
+		$('#proBar').attr('ara-valuenow',update);
+		$('#proBar').attr('style','width:'+update+'%;');
+		$('#proBarP').text(update+'%');
+	}
 }

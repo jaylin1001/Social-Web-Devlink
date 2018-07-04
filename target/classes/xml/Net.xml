@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.devlink.network.model.NetMapper">
+ 	<resultMap id="MemberResult" type="com.devlink.dao.Member">
+		<result column="m_no" property="m_no" />
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="joindate" property="joindate" />
+		<result column="outdate" property="outdate" />
+		<result column="name" property="name" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="headline" property="headline"/>
+		<result column="path" property="path"/>
+	</resultMap>
+	<select id="selectFrdTo" resultMap="MemberResult" parameterType="String">
+	SELECT m.* FROM member WHERE m.m_no IN (SELECT frd_from FROM frd WHERE frd_to=#{no} AND frd_status=1)
+	</select>
+	<select id="selectFrdFrom" resultMap="MemberResult" parameterType="String">
+	SELECT m.* FROM member WHERE m.m_no IN (SELECT frd_to FROM frd WHERE frd_from=#{no} AND frd_status=1)
+	</select>
+	<select id="selectFrdP" resultMap="MemberResult" parameterType="String">
+		SELECT m.* FROM member m, (SELECT solve.rs FROM (SELECT distinct frd_from rs FROM frd WHERE frd_from in (SELECT frd_from k FROM frd WHERE frd_to=#{no} UNION SELECT frd_to k FROM frd WHERE frd_from=#{no})
+		UNION
+		SELECT distinct frd_to rs FROM frd WHERE frd_to in (SELECT frd_from k FROM frd WHERE frd_to=#{no} UNION SELECT frd_to k FROM frd WHERE frd_from=#{no})
+		UNION
+		SELECT distinct (m_no) rs FROM profile WHERE m_no NOT IN #{no} AND REGEXP_LIKE(pr_title,(SELECT uni1.pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE m_no=#{no} AND pr_kind=2 ORDER BY pr_no DESC) uni1 WHERE uni1.n=1)||(SELECT uni1.pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE m_no=#{no} AND pr_kind=2 ORDER BY pr_no DESC) uni1 WHERE uni1.n=2)||(SELECT uni1.pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE m_no=#{no} AND pr_kind=2 ORDER BY pr_no DESC) uni1 WHERE uni1.n=3))) solve WHERE solve.rs NOT IN (SELECT frd_from k FROM frd WHERE frd_to=#{no} AND frd_status=2 UNION SELECT frd_to k FROM frd WHERE frd_from=#{no} AND frd_status=2) AND solve.rs NOT IN #{no}
+		) grp  WHERE m.m_no=grp.rs
+	</select>
+</mapper>

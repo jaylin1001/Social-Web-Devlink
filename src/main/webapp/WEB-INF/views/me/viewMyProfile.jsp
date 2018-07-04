@@ -36,7 +36,9 @@ display:inline;
 <body>
 	<%@include file="../home/devnav.jsp"%>
 	<div id="contents" style="text-align:center;">
-		<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9"></div>
+		<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
+			
+		</div>
 		<div style="width:70%;float:none;display: inline-block;background-color:#F9F9F9">
 			<div class="card border-light" style="width:100%;">
 			<div class="card-header" style="padding:0px;border: none;"><img src="resources/img/me/profileback4.png" style="border: none;width:100%;"></div>
@@ -89,9 +91,9 @@ display:inline;
 			<div class="card border-light mb-3" style="width:100%">
 			  <div class="card-body">
 			    <h5 class="card-text">Profile Strength</h5>
-			    <span>${st}%</span>
+			    <span id="proBarP">${st}%</span>
 					<div class="progress">
-						<div class="progress-bar progress-bar-striped progress-bar-animated${color}" role="progressbar" style="width:${st }%;" aria-valuenow="${st }" aria-valuemin="0" aria-valuemax="100"></div>
+						<div id="proBar" class="progress-bar progress-bar-striped progress-bar-animated${color}" role="progressbar" style="width:${st }%;" aria-valuenow="${st }" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 			  </div>
 			</div>
