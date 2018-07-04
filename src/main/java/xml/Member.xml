@@ -50,8 +50,7 @@
 		<result column="pr_no" property="no" />
 		<result column="pr_title" property="title" />
 		<result column="pr_contents" property="contents" />
-	</resultMap>
-	
+	</resultMap>	
 	<resultMap id="MemberResult" type="com.devlink.dao.Member">
 		<result column="m_no" property="m_no" />
 		<result column="id" property="id" />
