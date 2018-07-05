@@ -2,10 +2,12 @@ package com.devlink.network.model;
 
 import java.util.ArrayList;
 
-import com.devlink.dao.Member;
+import com.devlink.dao.Frd;
 
 public interface NetMapper {
-	ArrayList<Member> selectFrdTo(String no);
-	ArrayList<Member> selectFrdFrom(String no);
-	ArrayList<Member> selectFrdP(String no);
+	ArrayList<Frd> selectFrdTo(String no);
+	ArrayList<Frd> selectFrdFrom(String no);
+	ArrayList<Frd> selectFrdP(String no);
+	ArrayList<Frd> selectFrd(String no);
+	ArrayList<Frd> selectFrdAll(String no);
 }

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.devlink.dao.Member;
+import com.devlink.dao.Frd;
 import com.devlink.network.model.NetMapper;
 
 @Component("netService")
@@ -21,20 +21,32 @@ public class NetService implements Service {
 	}
 	
 	@Override
-	public ArrayList<Member> getFrdTo(String no) {
+	public ArrayList<Frd> getFrdTo(String no) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		return mapper.selectFrdTo(no);
 	}
 
 	@Override
-	public ArrayList<Member> getFrdFrom(String no) {
+	public ArrayList<Frd> getFrdFrom(String no) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		return mapper.selectFrdFrom(no);
 	}
 
 	@Override
-	public ArrayList<Member> getFrdP(String no) {
+	public ArrayList<Frd> getFrdP(String no) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		return mapper.selectFrdP(no);
+	}
+
+	@Override
+	public ArrayList<Frd> getFrd(String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		return mapper.selectFrd(no);
+	}
+
+	@Override
+	public ArrayList<Frd> getFrdAll(String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		return mapper.selectFrdAll(no);
 	}
 }

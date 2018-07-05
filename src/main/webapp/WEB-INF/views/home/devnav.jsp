@@ -18,7 +18,7 @@ $(function(){
 	<div class="collapse navbar-collapse" id="navbarColor01">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" id="home"><a class="nav-link" href="${pageContext.request.contextPath }/home">Home<span class="sr-only">(current)</span></a></li>
-			<li class="nav-item" id="network"><a class="nav-link" href="${pageContext.request.contextPath }/network">Network</a></li>
+			<li class="nav-item" id="network"><a class="nav-link" href="${pageContext.request.contextPath }/network.do">Network</a></li>
 			<li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li>
 			<li class="nav-item" id="msg"><a class="nav-link" href="#">Messaging</a></li>
         	<!-- <li class="nav-item" id="me"><a class="nav-link" href="#">Me</a></li> -->

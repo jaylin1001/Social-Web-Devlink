@@ -33,7 +33,7 @@ display:inline;
 <script>
 </script>
 </head>
-<body>
+<body style="background-color:#F9F9F9">
 	<%@include file="../home/devnav.jsp"%>
 	<div id="contents" style="text-align:center;">
 		<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
