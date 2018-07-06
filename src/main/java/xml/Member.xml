@@ -163,4 +163,32 @@
 	<select id="selectForLogin" resultMap="MemberResult" parameterType="java.util.HashMap">
 		SELECT * FROM member WHERE id=#{id} AND pwd=#{pwd} AND rownum=1
 	</select>
+	
+	<!-- 다은 -->
+	<select id="select" resultMap="MemberResult" parameterType="String">
+		select * from member where id=#{id}
+	</select>
+	<select id="selectpwd" resultMap="MemberResult" parameterType="String">
+		select * from member where pwd=#{pwd}
+	</select>
+	<insert id="insert" parameterType="com.devlink.dao.Member">
+		INSERT INTO member(M_NO,ID,PWD,JOINDATE,NAME,ADDRESS,EMAIL,PHONE)
+		VALUES(m_seq.nextval, #{id}, #{pwd}, SYSDATE, #{name}, '----', #{email}, #{phone})
+	</insert>
+	<update id="updateemail" parameterType="com.devlink.dao.Member">
+		update member set email=#{email}
+		where id=#{id}
+	</update>
+	<update id="updatephone" parameterType="com.devlink.dao.Member">
+		update member set phone=#{phone}
+		where id=#{id}
+	</update>
+	<update id="updateaddress" parameterType="com.devlink.dao.Member">
+		update member set address=#{address}
+		where id=#{id}
+	</update>
+	<update id="updatepwd" parameterType="com.devlink.dao.Member">
+		update member set pwd=#{pwd}
+		where id=#{id}
+	</update>
 </mapper>

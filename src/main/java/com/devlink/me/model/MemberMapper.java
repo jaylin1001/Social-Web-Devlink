@@ -46,4 +46,15 @@ public interface MemberMapper {
 	void insertPath(Img img);
 	HashMap<String, String> selectPath(String id);
 	Member selectForLogin(HashMap<String, String> map);
+	
+	/*다은이*/
+	void insert(Member m);
+	Member select(String id);	
+	Member selectpwd(String pwd);
+	void update(Member m);	
+	void updateemail(Member m);	
+	void updatephone(Member m);	
+	void updateaddress(Member m);	
+	void updatepwd(Member m);
+	void delete(String id);
 }

@@ -27,8 +27,8 @@ $(function(){
 		    	<div id="nav-drop-detail"class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
 					<a class="dropdown-item" href="#">About</a>
 		      		<a class="dropdown-item" href="${pageContext.request.contextPath }/viewmyprofile.do">View My Profile</a>
-		      		<a class="dropdown-item" href="#">Setting</a>
-		      		<a class="dropdown-item" href="#">Help Center</a>
+		      		<a class="dropdown-item" href="${pageContext.request.contextPath }/settings.do">Setting</a>
+		      		<a class="dropdown-item" href="${pageContext.request.contextPath }/helpcenter.do">Help Center</a>
 		      		<div class="dropdown-divider"></div>
 		      		<a class="dropdown-item" id ="logout" href="#">Log Out</a>
 		    	</div>
