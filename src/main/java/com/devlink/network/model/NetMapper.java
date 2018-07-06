@@ -1,6 +1,7 @@
 package com.devlink.network.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.devlink.dao.Frd;
 
@@ -10,4 +11,6 @@ public interface NetMapper {
 	ArrayList<Frd> selectFrdP(String no);
 	ArrayList<Frd> selectFrd(String no);
 	ArrayList<Frd> selectFrdAll(String no);
+	HashMap<String, String> selectIngFrdNo(HashMap<String, String> map);
+	void deleteFrdFrom(String frdNo);
 }

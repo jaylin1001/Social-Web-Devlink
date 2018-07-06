@@ -99,7 +99,7 @@ function addExp(){
             $("#addExp").modal('toggle');
             alert(e.responseText);  
         }
-    });	 
+    });
 }
 
 function openAddEduModal(){

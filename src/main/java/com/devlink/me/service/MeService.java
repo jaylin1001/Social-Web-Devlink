@@ -168,4 +168,18 @@ public class MeService implements Service {
 		mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.selectPath(id);
 	}
+
+	@Override
+	public boolean login(String id, String pwd) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		mapper = sqlSession.getMapper(MemberMapper.class);
+		map.put("id", id);
+		map.put("pwd", pwd);
+		Member m=mapper.selectForLogin(map);
+		if(m==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 }

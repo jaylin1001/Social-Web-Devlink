@@ -37,4 +37,5 @@ public interface Service {
 	void delPro(String no);
 	void addPath(Img img);
 	HashMap<String, String> getPath(String id);
+	boolean login(String id, String pwd);
 }

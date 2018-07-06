@@ -160,4 +160,7 @@
 	<select id="selectPath" resultMap="picPath" parameterType="String">
 		SELECT path FROM member WHERE id=#{id}
 	</select>
+	<select id="selectForLogin" resultMap="MemberResult" parameterType="java.util.HashMap">
+		SELECT * FROM member WHERE id=#{id} AND pwd=#{pwd} AND rownum=1
+	</select>
 </mapper>

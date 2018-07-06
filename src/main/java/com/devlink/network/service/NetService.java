@@ -1,6 +1,7 @@
 package com.devlink.network.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -48,5 +49,20 @@ public class NetService implements Service {
 	public ArrayList<Frd> getFrdAll(String no) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		return mapper.selectFrdAll(no);
+	}
+
+	@Override
+	public String getIngFrdNo(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		return mapper.selectIngFrdNo(map).get("frd_no");
+	}
+	
+	@Override
+	public void delFrdFrom(String frdNo) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		mapper.deleteFrdFrom(frdNo);
 	}
 }

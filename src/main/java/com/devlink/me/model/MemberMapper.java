@@ -45,4 +45,5 @@ public interface MemberMapper {
 	void deletePro(String no);
 	void insertPath(Img img);
 	HashMap<String, String> selectPath(String id);
+	Member selectForLogin(HashMap<String, String> map);
 }

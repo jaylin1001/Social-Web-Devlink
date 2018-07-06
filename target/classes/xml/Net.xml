@@ -22,6 +22,10 @@
 		<result column="path" property ="path"/>
 	</resultMap>
 	
+	<resultMap id="FrdNo" type="java.util.HashMap">
+        <result javaType="java.lang.String" column="frd_no" property="frd_no"/>
+	</resultMap>
+	
 	<select id="selectFrdTo" resultMap="FrdResult" parameterType="String">
 	SELECT m.m_no, m.name, m.path
 	FROM member m, frd f
@@ -113,4 +117,12 @@
 	WHERE f.frd_to=#{no}
 	AND f.frd_from=m.m_no)
 	</select>
+	<select id="selectIngFrdNo" resultMap="FrdNo" parameterType="java.util.HashMap">
+		SELECT frd_no FROM frd WHERE frd_from=#{myno} AND frd_to=#{no} AND frd_status=1
+		UNION
+		SELECT frd_no FROM frd WHERE frd_to=#{no} AND frd_from=#{myno} AND frd_status=1
+	</select>
+	<delete id="deleteFrdFrom" parameterType="String">
+		DELETE frd WHERE frd_no=#{frdNo}
+	</delete>
 </mapper>

@@ -15,18 +15,18 @@
 $(function(){
 	var $idObj = $('input[type=text]'); //type속성이 text인 input객체를 dom트리에서 찾기
 	var itemValue = localStorage.getItem('id');
-	var $chkObj = $('input[type=checkbox]');
+/* 	var $chkObj = $('input[type=checkbox]'); */
 	$idObj.val(itemValue);
 	
-	
+	<%-- 
 	$('form').submit(function(){
-		var idValue = $idObj.val();
+		/* var idValue = $idObj.val();
 		//chkObj가 체크된 경우에는
 		if($chkObj.prop('checked')){
 		  localStorage.setItem('id', idValue);		
 		}else{//chkObj가 체크안된 경우에는
 		  localStorage.removeItem('id');
-		}
+		} */
 		$.ajax({
 			data:$('form').serialize(),
 			method:'POST',
@@ -37,7 +37,7 @@ $(function(){
 				if(data == '1'){
 					//$('section').html('로그인 성공');
 					//location.href="index.jsp";
-					<%--location.href="<%=request.getContextPath()%>";--%>
+					location.href="<%=request.getContextPath()%>";
 					$('#loginWarining').css('display','none');
 					location.href="home.jsp";
 				}else{
@@ -46,7 +46,7 @@ $(function(){
 			}
 		});
 		return false; //기본이벤트처리 막기
-	});
+	}); --%>
 	
 	$('.warningx').on('click',function(){
 		$('#loginWarining').css('display','none');
@@ -55,9 +55,10 @@ $(function(){
 });
 
 function login(){
+	console.log('login()');
 	var remember=document.getElementById('remember');
 	if(remember.checked==true){
-		  localStorage.setItem('id', idValue);		
+		  localStorage.setItem('id', $('input[type=text]').val());		
 	}else{
 		  localStorage.removeItem('id');		
 	}
@@ -301,7 +302,7 @@ to {
 </body>
 
 <div id="id01" class="modal">
-	<form class="modal-content animate" action="/login.do" id="loginForm">
+	<form class="modal-content animate" action="${pageContext.request.contextPath }/login.do" id="loginForm" method="post">
 		<div class="imgcontainer">
 			<span onclick="document.getElementById('id01').style.display='none'"
 				class="close warningx" title="Close Modal">&times;</span> <img

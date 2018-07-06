@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.devlink.dao.Frd;
@@ -35,12 +36,14 @@ public class NetController {
 		mav.addObject("frdfrom", frdfrom);
 		mav.addObject("frdp", frdp);
 		mav.addObject("frd",frd);
-		if(frdp.size()==0) {
+		ArrayList<Frd> frdAll = service.getFrdAll(no);
+		mav.addObject("frdAll",frdAll);
+/*		if(frdp.size()==0) {
 			ArrayList<Frd> frdAll = service.getFrdAll(no);
 			mav.addObject("frdAll",frdAll);
 		}else {
 			mav.addObject("frdAll",null);
-		}
+		}*/
 		return mav;
 	}
 	@RequestMapping(value="/friendlist", method=RequestMethod.GET)
@@ -58,4 +61,15 @@ public class NetController {
 		mav.addObject("frd",frd);
 		return mav;
 	}
+	
+	@RequestMapping(value="/delfrdfrom.do")
+	public ModelAndView delFrdFrom(HttpServletRequest req,@RequestParam(value = "no") String no) {
+		ModelAndView mav=new ModelAndView("result");
+		String id="id1";
+		String myno=meService.getNo(id);
+		String frdNo=service.getIngFrdNo(myno,no);
+		service.delFrdFrom(frdNo);
+		mav.addObject("result","1");
+		return mav;
+	}	
 }

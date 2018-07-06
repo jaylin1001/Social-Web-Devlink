@@ -9,7 +9,7 @@ $(function(){
 });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<a class="navbar-brand" href="${pageContext.request.contextPath }/home">DevLink</a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">DevLink</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarColor01" aria-controls="navbarColor01"
 		aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@ $(function(){
 	</button>
 	<div class="collapse navbar-collapse" id="navbarColor01">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item" id="home"><a class="nav-link" href="${pageContext.request.contextPath }/home">Home<span class="sr-only">(current)</span></a></li>
+			<li class="nav-item" id="home"><a class="nav-link" href="${pageContext.request.contextPath }/home.do">Home<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item" id="network"><a class="nav-link" href="${pageContext.request.contextPath }/network.do">Network</a></li>
 			<li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li>
 			<li class="nav-item" id="msg"><a class="nav-link" href="#">Messaging</a></li>

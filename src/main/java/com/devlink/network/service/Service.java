@@ -10,4 +10,6 @@ public interface Service {
 	ArrayList<Frd> getFrdP(String no);
 	ArrayList<Frd> getFrd(String no);
 	ArrayList<Frd> getFrdAll(String no);
+	String getIngFrdNo(String myno, String no);
+	void delFrdFrom(String frdNo);
 }

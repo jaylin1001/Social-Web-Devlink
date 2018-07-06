@@ -117,7 +117,6 @@ width:33%;
    src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
    integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
    crossorigin="anonymous"></script>
-
 </head>
 <body style="background-color:#F9F9F9">
 <%@include file="../home/devnav.jsp"%>
@@ -141,11 +140,12 @@ width:33%;
 	</div>
 	<div style="width:70%;display: inline-block;background-color:#F9F9F9">
 		<div id=firstbar style="box-shadow: 2px 2px 2px 2px #888888;margin-left:13%;margin-right:5%;">
+		
 			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
 				<p style="font-size: 20px;text-align:center;"><b>보낸 친구신청</b></p><hr>
 				<c:if test="${not empty frdfrom }">
 					<c:forEach var="f" items="${frdfrom}" begin="0" end="${fn:length(frdfrom)}" step="1">
-						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
+						<form class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						  	<c:if test="${not empty f.path }">
 							    <img class="frdPic" src="resources/img/profile/${f.path }"><br>
@@ -154,9 +154,12 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-						    <button type="button" class="btn btn-secondary" onclick="">취소</button>
+						    <div>
+						    	<input type="hidden" value="${f.m_no}" name="no">
+						    	<button type="submit" class="btn btn-secondary">취소</button>
+						    </div>
 						  </div>
-						</div>
+						</form>
 				    </c:forEach>
 				</c:if>
 				<br>
@@ -164,6 +167,7 @@ width:33%;
 					<a href="" style="font-size: 18px;text-align:center;">모두보기</a><br />
 				</c:if>
 			</div>
+			
 			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
 				<p style="font-size: 20px;text-align:center;"><b>받은 친구신청</b></p><hr>
 				<c:if test="${not empty frdto }">
@@ -201,13 +205,12 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-						    <button class="btn btn-info" onclick="">수락</button>
-						    <button class="btn btn-warning" onclick="">거절</button>
+							<button class ="requestFrd"onclick="btnchange()">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
 				</c:if>
-				<c:if test="${empty frdp and not empty frdAll }">
+				<c:if test="${not empty frdAll }">
 					<c:forEach var="f" items="${frdAll}" begin="0" end="${fn:length(frdAll)}" step="1">
 						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
@@ -218,7 +221,7 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-							<button onclick="btnchange()">친구신청</button>
+							<button class ="requestFrd"onclick="btnchange()">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
@@ -242,7 +245,7 @@ width:33%;
 </div>
 <script>
 var cnt = 0;
-$('button').on('click', function(){
+$('.requestFrd').on('click', function(){
 	cnt++;
 	if(cnt > 1){
 		$('button').removeClass('selected');
@@ -251,6 +254,26 @@ $('button').on('click', function(){
 		$(this).addClass('selected');
 	}
 });
+
+$('form').submit(function(){
+	console.log("form()");
+	var f=$(this);
+    $.ajax({      
+        type:'POST',  
+        url:'delfrdfrom.do',      
+        data: $(this).serialize(),      
+        success:function(data){
+        	if(data.trim()=='1'){
+        		$(f).remove();
+        	}
+        },
+        error:function(e){
+            alert(e.responseText);  
+        }
+    });
+	return false;
+});
+
 </script>
 </body>
 </html>

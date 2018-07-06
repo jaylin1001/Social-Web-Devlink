@@ -153,7 +153,7 @@ width:33%;
 							<c:if test="${empty f.path }">
 							    <a href=""><img class="frdPic" src="resources/img/home/default.png"></a><br>
 							</c:if>
-						    <b><a href="" style="text-decoration: none;color:inherit;">${f.name }</a></b><br>&ensp;&ensp;&ensp;&nbsp;
+						    <b><a href="" style="text-decoration: none;color:inherit;">${f.name }</a></b><br>&ensp;&ensp;&nbsp;
 							<a href=""><i class="far fa-envelope" style="font-size: 30px; margin-right: 10px; color: #008CBA;"></i></a>
 							<a href=""><i class="fas fa-trash-alt" style="font-size: 30px; margin-right: 20px; color: red"></i></a>
 						  </div>
@@ -174,17 +174,5 @@ width:33%;
 		</div>
 	</div>
 </div>
-<script>
-var cnt = 0;
-$('button').on('click', function(){
-	cnt++;
-	if(cnt > 1){
-		$('button').removeClass('selected');
-		cnt = 0;
-	}else{
-		$(this).addClass('selected');
-	}
-});
-</script>
 </body>
 </html>
