@@ -7,9 +7,6 @@ public class Frd {
 	public String getM_no() {
 		return m_no;
 	}
-	public Frd() {
-		super();
-	}
 	public void setM_no(String m_no) {
 		this.m_no = m_no;
 	}
@@ -25,15 +22,18 @@ public class Frd {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	@Override
+	public String toString() {
+		return "Frd [m_no=" + m_no + ", name=" + name + ", path=" + path + "]";
+	}
 	public Frd(String m_no, String name, String path) {
 		super();
 		this.m_no = m_no;
 		this.name = name;
 		this.path = path;
 	}
-	@Override
-	public String toString() {
-		return "Frd [m_no=" + m_no + ", name=" + name + ", path=" + path + "]";
+	public Frd() {
+		super();
 	}
 	
 }

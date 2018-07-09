@@ -124,10 +124,15 @@ width:33%;
 <div id="contents">
 	<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
 		<div id=userbar>
+			<c:if test="${empty sessionScope.path }">
            <img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
+           </c:if>
+           <c:if test="${not empty sessionScope.path }">
+            <img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
+           </c:if>
            <div id="static1"></div>
            <div id="static2" style="background-color: white">
-              <b style="font-size: 20px">Yun님</b> <br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
+              <b style="font-size: 20px">${sessionScope.name}</b> <br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
            </div>
            <div id="static3">
               <h4 style="color: dodgerblue; font-size: 20px">친구 <span>${fn:length(frd)}</span>명</h4>

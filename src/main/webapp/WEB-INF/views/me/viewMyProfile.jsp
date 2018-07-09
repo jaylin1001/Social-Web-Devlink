@@ -9,7 +9,7 @@
 <title>DevLink - view my profile</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type='text/javascript' src="resources/js/bootstrap.js"></script>
-<script type='text/javascript' src="resources/js/me/myprofile.js"></script>
+<script type='text/javascript' src="resources/js/devlink/myprofile.js"></script>
 <script type='text/javascript' src="resources/js/httpRequest.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <link rel="stylesheet" href="resources/css/home/home.css">

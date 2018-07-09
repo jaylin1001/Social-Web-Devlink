@@ -170,16 +170,12 @@ public class MeService implements Service {
 	}
 
 	@Override
-	public boolean login(String id, String pwd) {
+	public Member login(String id, String pwd) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		mapper = sqlSession.getMapper(MemberMapper.class);
 		map.put("id", id);
 		map.put("pwd", pwd);
 		Member m=mapper.selectForLogin(map);
-		if(m==null) {
-			return false;
-		}else {
-			return true;
-		}
+		return m;
 	}
 }

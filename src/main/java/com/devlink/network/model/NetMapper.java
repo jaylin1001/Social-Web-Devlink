@@ -13,4 +13,6 @@ public interface NetMapper {
 	ArrayList<Frd> selectFrdAll(String no);
 	HashMap<String, String> selectIngFrdNo(HashMap<String, String> map);
 	void deleteFrdFrom(String frdNo);
+	HashMap<String, String> isFrd(HashMap<String, String> map);
+	void updateFrdtoOk(String frdNo);
 }

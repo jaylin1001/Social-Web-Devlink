@@ -12,4 +12,6 @@ public interface Service {
 	ArrayList<Frd> getFrdAll(String no);
 	String getIngFrdNo(String myno, String no);
 	void delFrdFrom(String frdNo);
+	String isFrd(String myno, String no);
+	void frdtoOk(String frdNo);
 }

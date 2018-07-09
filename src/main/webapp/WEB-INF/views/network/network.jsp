@@ -110,8 +110,10 @@ width:33%;
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type='text/javascript' src="resources/js/bootstrap.js"></script>
+<script type='text/javascript' src="resources/js/devlink/network.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <link rel="stylesheet" href="resources/css/home/home.css">
+<script src="resources/js/home/home.js"></script>
 <script src="resources/js/home/home.js"></script>
 <script defer
    src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
@@ -123,13 +125,18 @@ width:33%;
 <div id="contents">
 	<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
 		<div id=userbar>
+			<c:if test="${empty sessionScope.path }">
            <img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
+           </c:if>
+           <c:if test="${not empty sessionScope.path }">
+            <img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
+           </c:if>
            <div id="static1"></div>
            <div id="static2" style="background-color: white">
-              <b style="font-size: 20px">Yun님</b> <br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
+              <b style="font-size: 20px">${sessionScope.name}</b> <br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
            </div>
            <div id="static3">
-              <h4 style="color: dodgerblue; font-size: 20px">친구 <span>${fn:length(frd)}</span>명</h4>
+              <h4 style="color: dodgerblue; font-size: 20px">친구 <span id="numberoffrd">${fn:length(frd)}</span>명</h4>
               <h5 style="font-size: 15px">친구찾기</h5>
            </div>
            <div id="static4">
@@ -172,7 +179,7 @@ width:33%;
 				<p style="font-size: 20px;text-align:center;"><b>받은 친구신청</b></p><hr>
 				<c:if test="${not empty frdto }">
 					<c:forEach var="f" items="${frdto}" begin="0" end="${fn:length(frdto)}" step="1">
-						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
+						<form class="card border-light mb-3 frdDiv" style="display:inline-block;" id="frdto${f.m_no}">
 						  <div class="card-body">
 						    <c:if test="${not empty f.path }">
 							    <img class="frdPic" src="resources/img/profile/${f.path }"><br>
@@ -181,10 +188,11 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-						    <button class="btn btn-info" onclick="">수락</button>
-						    <button class="btn btn-warning" onclick="">거절</button>
+						    <input type="hidden" value="${f.m_no}" name="no">
+						    <button type="button" class="btn btn-info" onclick="frdtoOk(${f.m_no})">수락</button>
+						    <button type="submit" class="btn btn-warning">거절</button>
 						  </div>
-						</div>
+						</form>
 				    </c:forEach>
 				</c:if>
 				<br>
@@ -205,7 +213,7 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-							<button class ="requestFrd"onclick="btnchange()">친구신청</button>
+							<button class ="requestFrd"onclick="btnchange(${f.m_no})">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
@@ -221,7 +229,7 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-							<button class ="requestFrd"onclick="btnchange()">친구신청</button>
+							<button class ="requestFrd"onclick="btnchange(${f.m_no})">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
@@ -243,7 +251,7 @@ width:33%;
 		</div>
 	</div>
 </div>
-<script>
+<!-- <script>
 var cnt = 0;
 $('.requestFrd').on('click', function(){
 	cnt++;
@@ -274,6 +282,6 @@ $('form').submit(function(){
 	return false;
 });
 
-</script>
+</script> -->
 </body>
 </html>

@@ -30,7 +30,7 @@ $(function(){
 		      		<a class="dropdown-item" href="${pageContext.request.contextPath }/settings.do">Setting</a>
 		      		<a class="dropdown-item" href="${pageContext.request.contextPath }/helpcenter.do">Help Center</a>
 		      		<div class="dropdown-divider"></div>
-		      		<a class="dropdown-item" id ="logout" href="#">Log Out</a>
+		      		<a class="dropdown-item" id ="logout" href="${pageContext.request.contextPath }/logout.do">Log Out</a>
 		    	</div>
 			</li>
         	<!-- <li class="nav-item" id="logout"><a class="nav-link" href="#">Logout</a></li> -->

@@ -57,12 +57,33 @@ public class NetService implements Service {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("myno", myno);
 		map.put("no", no);
-		return mapper.selectIngFrdNo(map).get("frd_no");
+		HashMap<String, String> temp=mapper.selectIngFrdNo(map);
+		if(temp==null)
+			return null;
+		return temp.get("frd_no");
 	}
 	
 	@Override
 	public void delFrdFrom(String frdNo) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		mapper.deleteFrdFrom(frdNo);
+	}
+
+	@Override
+	public String isFrd(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		HashMap<String, String> temp=mapper.isFrd(map);
+		if(temp==null)
+			return null;
+		return temp.get("frd_no");		
+	}
+
+	@Override
+	public void frdtoOk(String frdNo) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		mapper.updateFrdtoOk(frdNo);		
 	}
 }

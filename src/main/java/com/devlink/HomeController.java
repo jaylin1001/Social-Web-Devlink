@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.devlink.dao.Member;
 import com.devlink.me.service.Service;
 
 /**
@@ -40,31 +41,53 @@ public class HomeController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest req,@RequestParam(value = "id") String id,@RequestParam(value = "pwd") String pwd) {
 		String rPwd=rpwd(pwd);
-		boolean login=service.login(id,rPwd);
-		if(login) {
-			System.out.println("일치!");
+		Member m=service.login(id,rPwd);
+		if(m!=null) {
+			System.out.println("�씪移�!");
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
+			session.setAttribute("no", m.getM_no());
+			session.setAttribute("name", m.getName());
+			if(m.getPath()!=null) {
+				System.out.println(m.getPath());
+				session.setAttribute("path", m.getPath());
+			}else {
+				System.out.println(m.getPath());				
+			}
 			return "redirect:/home.do";
 		}
 		else {
-			System.out.println("불일치!");
+			System.out.println("遺덉씪移�!");
 			return "redirect:/";
 		}
 	}
-	
 	private String rpwd(String pwd) {
 		return pwd;
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logout(HttpServletRequest req) {
+		System.out.println("HERE");
+		HttpSession session = req.getSession(false);
+		if(session!=null) {
+			session.removeAttribute("id");
+			session.removeAttribute("no");
+			session.removeAttribute("name");
+			if(session.getAttribute("path")!=null)
+				session.removeAttribute("path");		
+			session.invalidate();
+		}
+		return "redirect:/";
 	}
 
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
 	public String home(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		if(session==null)
-			return "index";
+			return "redirect:/";
 		else{
 			if(req.getSession(false).getAttribute("id")==null)
-				return "index";
+				return "redirect:/";
 		}
 		return "home/home";
 	}
@@ -80,10 +103,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/me", method=RequestMethod.GET)
 	public String me() {
-		return "me/viewMyProfile";
-	}
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout() {
 		return "me/viewMyProfile";
 	}
 }

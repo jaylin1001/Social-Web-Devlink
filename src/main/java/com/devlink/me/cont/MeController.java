@@ -41,7 +41,7 @@ public class MeController {
 		
 		ModelAndView mav = new ModelAndView("me/viewMyProfile");
 		
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		Member m = service.getIntro(id);
 		ArrayList<Certification> certi=service.getCerti(id);
 		ArrayList<Education> edu=service.getEdu(id);
@@ -69,7 +69,7 @@ public class MeController {
 
 	@RequestMapping(value="/editintro.do", method=RequestMethod.POST)
 	public String editIntro(HttpServletRequest req, Member m){
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		m.setId(id);
 		service.editIntro(m);
 		return "result";
@@ -78,7 +78,7 @@ public class MeController {
 	@RequestMapping(value="/addexp.do", method=RequestMethod.POST)
 	public ModelAndView addExp(HttpServletRequest req, Exp e){
 		ModelAndView mav = new ModelAndView("me/addExp");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		e.setNo(service.getNo(id));
 		Exp exp=service.addExp(e);
 		System.out.println(exp);
@@ -89,7 +89,7 @@ public class MeController {
 	@RequestMapping(value="/addedu.do", method=RequestMethod.POST)
 	public ModelAndView addEdu(HttpServletRequest req, Education e){
 		ModelAndView mav = new ModelAndView("me/addEdu");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		e.setNo(service.getNo(id));
 		Education edu=service.addEdu(e);
 		mav.addObject("edu",edu);
@@ -99,7 +99,7 @@ public class MeController {
 	@RequestMapping(value="/addskill.do", method=RequestMethod.POST)
 	public ModelAndView addSkill(HttpServletRequest req, Skill s){
 		ModelAndView mav = new ModelAndView("me/addSkill");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		s.setNo(service.getNo(id));
 		Skill skill=service.addSkill(s);
 		mav.addObject("skill",skill);
@@ -109,7 +109,7 @@ public class MeController {
 	@RequestMapping(value="/addlang.do", method=RequestMethod.POST)
 	public ModelAndView addLang(HttpServletRequest req, Language l){
 		ModelAndView mav = new ModelAndView("me/addLang");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		l.setNo(service.getNo(id));
 		Language lang=service.addLang(l);
 		mav.addObject("lang",lang);
@@ -128,7 +128,7 @@ public class MeController {
 	@RequestMapping(value="/addcerti.do", method=RequestMethod.POST)
 	public ModelAndView addCerti(HttpServletRequest req, Certification c){
 		ModelAndView mav = new ModelAndView("me/addCerti");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		c.setNo(service.getNo(id));
 		Certification certi=service.addCerti(c);
 		mav.addObject("certi",certi);
@@ -138,7 +138,7 @@ public class MeController {
 	@RequestMapping(value="/addpatent.do", method=RequestMethod.POST)
 	public ModelAndView addPatent(HttpServletRequest req, Patent p){
 		ModelAndView mav = new ModelAndView("me/addPatent");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		p.setNo(service.getNo(id));
 		Patent patent=service.addPatent(p);
 		mav.addObject("patent",patent);
@@ -148,7 +148,7 @@ public class MeController {
 	@RequestMapping(value="/addts.do", method=RequestMethod.POST)
 	public ModelAndView addTS(HttpServletRequest req, TestScore t){
 		ModelAndView mav = new ModelAndView("me/addTs");
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		System.out.println(t);
 		t.setNo(service.getNo(id));
 		TestScore testScore=service.addTs(t);
@@ -166,7 +166,7 @@ public class MeController {
 	@RequestMapping(value="/proform.do")
 	public String proForm(HttpServletRequest req, Img img) {
 		MultipartFile file = img.getFile();
-		String id="id1";
+		String id=(String) req.getSession(false).getAttribute("id");
 		String name=id+file.getOriginalFilename().substring((file.getOriginalFilename()).indexOf("."));
 		String path="C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+name;
 		/*String path = "resources\\img\\profile\\" + name;*/

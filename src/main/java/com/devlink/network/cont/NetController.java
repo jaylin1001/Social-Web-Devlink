@@ -26,8 +26,7 @@ public class NetController {
 	@RequestMapping(value="/network.do", method=RequestMethod.GET)
 	public ModelAndView network(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("network/network");
-		String id="id1";
-		String no=meService.getNo(id);
+		String no=(String) req.getSession(false).getAttribute("no");
 		ArrayList<Frd> frdto = service.getFrdTo(no);
 		ArrayList<Frd> frdfrom = service.getFrdFrom(no);
 		ArrayList<Frd> frdp=service.getFrdP(no);
@@ -54,8 +53,7 @@ public class NetController {
 
 	@RequestMapping(value="/friendlist.do", method=RequestMethod.GET)
 	public ModelAndView frdlist(HttpServletRequest req) {
-		String id="id1";
-		String no=meService.getNo(id);
+		String no=(String) req.getSession(false).getAttribute("no");
 		ModelAndView mav = new ModelAndView("network/friendlist");
 		ArrayList<Frd> frd= service.getFrd(no);
 		mav.addObject("frd",frd);
@@ -65,11 +63,32 @@ public class NetController {
 	@RequestMapping(value="/delfrdfrom.do")
 	public ModelAndView delFrdFrom(HttpServletRequest req,@RequestParam(value = "no") String no) {
 		ModelAndView mav=new ModelAndView("result");
-		String id="id1";
-		String myno=meService.getNo(id);
+		String myno=(String) req.getSession(false).getAttribute("no");
 		String frdNo=service.getIngFrdNo(myno,no);
-		service.delFrdFrom(frdNo);
+		if(frdNo!=null) {
+			service.delFrdFrom(frdNo);	
+		}
 		mav.addObject("result","1");
 		return mav;
-	}	
+	}
+	
+	@RequestMapping(value="/frdtoOk.do")
+	public ModelAndView frdtoOk(HttpServletRequest req,@RequestParam(value="m_no") String no) {
+		ModelAndView mav=new ModelAndView("result");
+		String myno=(String) req.getSession(false).getAttribute("no");
+		String frdNo=service.getIngFrdNo(myno,no);
+		if(frdNo==null) {
+			frdNo=service.isFrd(myno,no);
+			if(frdNo!=null) {
+				mav.addObject("result","1");
+			}
+			else {
+				mav.addObject("result","2");
+			}
+			return mav;
+		}
+		service.frdtoOk(frdNo);
+		mav.addObject("result","1");
+		return mav;
+	}
 }
