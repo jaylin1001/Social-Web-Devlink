@@ -62,6 +62,29 @@ public class NetService implements Service {
 			return null;
 		return temp.get("frd_no");
 	}
+	@Override
+	public String getIngFrdToMeNo(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		HashMap<String, String> temp=mapper.getIngFrdToMeNo(map);
+		if(temp==null)
+			return null;
+		return temp.get("frd_no");
+	}
+
+	@Override
+	public String getFrdFromMeNo(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		HashMap<String, String> temp=mapper.getFrdFromMeNo(map);
+		if(temp==null)
+			return null;
+		return temp.get("frd_no");
+	}
 	
 	@Override
 	public void delFrdFrom(String frdNo) {
@@ -85,5 +108,29 @@ public class NetService implements Service {
 	public void frdtoOk(String frdNo) {
 		mapper = sqlSession.getMapper(NetMapper.class);
 		mapper.updateFrdtoOk(frdNo);		
+	}
+
+	@Override
+	public void addFrdReq(String myno, String no) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		mapper.insertFrdReq(map);		
+	}
+
+	@Override
+	public void delFrdReq(String myno, String no) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		mapper.deleteFrdReq(map);
+	}
+
+	@Override
+	public void delFrd(String myno, String no) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("no", no);
+		mapper.deleteFrd(map);
 	}
 }

@@ -32,6 +32,7 @@ public class MeService implements Service {
 
 	@Override
 	public String getNo(String id) {
+		System.out.println("getNo()");
 		mapper = sqlSession.getMapper(MemberMapper.class);
 		HashMap<String,String> hmap = mapper.selectNoById(id);
 		return hmap.get("no");

@@ -11,6 +11,7 @@ import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
+import com.devlink.dao.Search;
 import com.devlink.dao.Skill;
 import com.devlink.dao.TestScore;
 
@@ -57,4 +58,7 @@ public interface MemberMapper {
 	void updateaddress(Member m);	
 	void updatepwd(Member m);
 	void delete(String id);
+	
+	void insertSearch(Search s);
+	HashMap<String, String> function(String name);
 }

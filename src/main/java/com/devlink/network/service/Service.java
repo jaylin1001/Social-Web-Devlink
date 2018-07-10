@@ -14,4 +14,9 @@ public interface Service {
 	void delFrdFrom(String frdNo);
 	String isFrd(String myno, String no);
 	void frdtoOk(String frdNo);
+	void addFrdReq(String myno, String no);
+	void delFrdReq(String myno, String no);
+	String getIngFrdToMeNo(String myno, String no);
+	String getFrdFromMeNo(String myno, String no);
+	void delFrd(String myno, String no);
 }

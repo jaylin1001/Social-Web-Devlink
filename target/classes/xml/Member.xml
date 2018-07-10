@@ -70,6 +70,12 @@
 	<resultMap id="picPath" type="java.util.HashMap">
         <result javaType="java.lang.String" column="path" property="path"/>
 	</resultMap>
+	<resultMap id="SearchResult" type="com.devlink.dao.Search">
+		<result column="nm_no" property="nm_no"/>
+		<result column="nm" property="nm"/>
+		<result column="nm_div" property="nm_div"/>
+		<result column="m_no" property="m_no"/>
+	</resultMap>
 	<select id="selectNoById" resultMap="memberNo" parameterType="String">
 		SELECT m_no FROM member WHERE id=#{id}
 	</select>
@@ -191,4 +197,11 @@
 		update member set pwd=#{pwd}
 		where id=#{id}
 	</update>
+	<!-- 검색 -->
+	<insert id="insertSearch" parameterType="com.devlink.dao.Search">
+		INSERT INTO search VALUES(nm_seq.nextval,#{nm},#{nm_div},#{m_no})
+	</insert>
+	<select id="function" resultMap="picPath" parameterType="String">
+		SELECT FN_GET_DIV_KO_CHAR(#{name}) as path FROM DUAL
+	</select>
 </mapper>

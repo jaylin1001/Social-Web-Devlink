@@ -15,4 +15,9 @@ public interface NetMapper {
 	void deleteFrdFrom(String frdNo);
 	HashMap<String, String> isFrd(HashMap<String, String> map);
 	void updateFrdtoOk(String frdNo);
+	void insertFrdReq(HashMap<String, String> map);
+	void deleteFrdReq(HashMap<String, String> map);
+	HashMap<String, String> getIngFrdToMeNo(HashMap<String, String> map);
+	HashMap<String, String> getFrdFromMeNo(HashMap<String, String> map);
+	void deleteFrd(HashMap<String, String> map);
 }

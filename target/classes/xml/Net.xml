@@ -42,6 +42,39 @@
 	</select>
 	<select id="selectFrdP" resultMap="FrdResult" parameterType="String">
 	SELECT *
+FROM (SELECT m_no,name,path
+FROM member m
+WHERE m_no NOT IN #{no}
+AND m_no NOT IN (
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_from=#{no}
+AND f.frd_to=m.m_no
+UNION
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_to=#{no}
+AND f.frd_from=m.m_no
+)
+AND m_no NOT IN (
+SELECT sumno
+FROM
+(
+SELECT frd_from sumno
+FROM frd
+WHERE frd_to NOT IN (
+SELECT frd_from FROM frd WHERE frd_to = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2
+)
+UNION
+SELECT frd_to sumno
+FROM frd
+WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
+WHERE sumno NOT IN (#{no})
+))
+UNION
+SELECT *
+FROM 
+(SELECT *
 	FROM (
 	SELECT m.m_no, m.name, m.path
 	FROM member m, frd f
@@ -87,7 +120,7 @@
 	SELECT m.m_no
 	FROM member m, frd f
 	WHERE f.frd_to=#{no}
-	AND f.frd_from=m.m_no)
+	AND f.frd_from=m.m_no))
 	</select>
 	<select id="selectFrd" resultMap="FrdResult" parameterType="String">
 	SELECT m.m_no, m.name, m.path
@@ -103,24 +136,46 @@
 	AND f.frd_from=m.m_no
 	</select>
 	<select id="selectFrdAll" resultMap="FrdResult" parameterType="String">
-	SELECT m_no,name,path
-	FROM member m
-	WHERE m_no NOT IN #{no}
-	AND m_no NOT IN (
-	SELECT m.m_no
-	FROM member m, frd f
-	WHERE f.frd_from=#{no}
-	AND f.frd_to=m.m_no
-	UNION
-	SELECT m.m_no
-	FROM member m, frd f
-	WHERE f.frd_to=#{no}
-	AND f.frd_from=m.m_no)
+SELECT m_no,name,path
+FROM member m
+WHERE m_no NOT IN #{no}
+AND m_no NOT IN (
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_from=#{no}
+AND f.frd_to=m.m_no
+UNION
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_to=#{no}
+AND f.frd_from=m.m_no
+)
+AND m_no NOT IN (
+SELECT sumno
+FROM
+(
+SELECT frd_from sumno
+FROM frd
+WHERE frd_to NOT IN (
+SELECT frd_from FROM frd WHERE frd_to = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2
+)
+UNION
+SELECT frd_to sumno
+FROM frd
+WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
+WHERE sumno NOT IN (#{no})
+)
 	</select>
 	<select id="selectIngFrdNo" resultMap="FrdNo" parameterType="java.util.HashMap">
 		SELECT frd_no FROM frd WHERE frd_to=#{myno} AND frd_from=#{no} AND frd_status=1
 		UNION
 		SELECT frd_no FROM frd WHERE frd_to=#{no} AND frd_from=#{myno} AND frd_status=1
+	</select>
+	<select id="getIngFrdToMeNo" resultMap="FrdNo" parameterType="java.util.HashMap">
+		SELECT frd_no FROM frd WHERE frd_to=#{myno} AND frd_from=#{no} AND frd_status=1
+	</select>	
+	<select id="getFrdFromMeNo" resultMap="FrdNo" parameterType="java.util.HashMap">
+		SELECT frd_no FROM frd WHERE frd_from=#{myno} AND frd_to=#{no} AND frd_status=1
 	</select>
 	<delete id="deleteFrdFrom" parameterType="String">
 		DELETE frd WHERE frd_no=#{frdNo}
@@ -133,4 +188,13 @@
 	<update id="updateFrdtoOk" parameterType="String">
 		UPDATE frd SET frd_status=2 WHERE frd_no=#{frdNo}
 	</update>
+	<insert id="insertFrdReq"  parameterType="java.util.HashMap">
+		INSERT INTO frd VALUES (frd_seq.nextval,#{myno},#{no},1)
+	</insert>
+	<delete id="deleteFrdReq" parameterType="java.util.HashMap">
+		DELETE frd WHERE frd_no=(SELECT frd_no FROM frd WHERE frd_from=#{myno} AND frd_to=#{no} AND frd_status=1 AND rownum=1)
+	</delete>
+	<delete id="deleteFrd" parameterType="java.util.HashMap">
+		DELETE frd WHERE frd_no IN (SELECT frd_no FROM frd WHERE ((frd_from=#{no} AND frd_to=#{myno}) OR (frd_from=#{myno} AND frd_to=#{no})) AND frd_status=2 AND rownum=1)
+	</delete>
 </mapper>

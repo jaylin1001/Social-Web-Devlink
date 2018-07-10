@@ -110,6 +110,7 @@ width:33%;
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type='text/javascript' src="resources/js/bootstrap.js"></script>
+<script type='text/javascript' src="resources/js/devlink/network.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <link rel="stylesheet" href="resources/css/home/home.css">
 <script src="resources/js/home/home.js"></script>
@@ -132,7 +133,7 @@ width:33%;
            </c:if>
            <div id="static1"></div>
            <div id="static2" style="background-color: white">
-              <b style="font-size: 20px">${sessionScope.name}</b> <br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
+              <b style="font-size: 20px">${sessionScope.name}</b> <br /> <a href="${pageContext.request.contextPath}/network.do">친구신청관리</a>
            </div>
            <div id="static3">
               <h4 style="color: dodgerblue; font-size: 20px">친구 <span>${fn:length(frd)}</span>명</h4>
@@ -150,7 +151,7 @@ width:33%;
 				<p style="font-size: 20px;text-align:center;"><b>내 친구 목록</b></p><hr>
 				<c:if test="${not empty frd }">
 					<c:forEach var="f" items="${frd}" begin="0" end="${fn:length(frd)}" step="1">
-						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
+						<div id="pFrd${f.m_no }"class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						  	<c:if test="${not empty f.path }">
 							    <a href=""><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
@@ -160,7 +161,7 @@ width:33%;
 							</c:if>
 						    <b><a href="" style="text-decoration: none;color:inherit;">${f.name }</a></b><br>&ensp;&ensp;&nbsp;
 							<a href=""><i class="far fa-envelope" style="font-size: 30px; margin-right: 10px; color: #008CBA;"></i></a>
-							<a href=""><i class="fas fa-trash-alt" style="font-size: 30px; margin-right: 20px; color: red"></i></a>
+							<a href="javascript:delFrd(${f.m_no });"><i class="fas fa-trash-alt" style="font-size: 30px; margin-right: 20px; color: red"></i></a>
 						  </div>
 						</div>
 				    </c:forEach>
@@ -171,10 +172,10 @@ width:33%;
 		<br>
 	</div>
 	<div style="height: 100%;width: 15%;float: right;margin-top:1%display: inline-block;padding:5px;background-color:#F9F9F9">
-		<img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;">
+		<a href="${pageContext.request.contextPath}/home.do" ><img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;"></a>
 		<hr>
 		<div style="text-align:center">
-			<a href="#">About</a>&ensp;<a href="#">Help Center</a>&ensp;<a href="#">Privacy & Terms</a><br>
+			<a href="#">About</a>&ensp;<a href="${pageContext.request.contextPath}/helpcenter.do">Help Center</a>&ensp;<a href="${pageContext.request.contextPath}/settings.do">Privacy & Terms</a><br>
 			<p style="color:#646464">KITRI Digital Convergence 25th<br><span class="badge badge-info">DevLink</span>&ensp;DevLink@2018</p>
 		</div>
 	</div>

@@ -98,6 +98,14 @@ button.selected{
         color:white;
         background-color:#008CBA;
 }
+button.isFrd{
+        color:white;
+        background-color:#FF9900;
+}
+button.isIng{
+        color:white;
+        background-color:#9900FF;
+}
 
 .frdDiv{
 text-align:center;
@@ -213,12 +221,13 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-							<button class ="requestFrd"onclick="btnchange(${f.m_no})">친구신청</button>
+						    <input type="hidden" id="addReq${f.m_no}">
+							<button class ="requestFrd" id="addBtn${f.m_no}" onclick="addFrd(${f.m_no})">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
 				</c:if>
-				<c:if test="${not empty frdAll }">
+				<%-- <c:if test="${not empty frdAll }">
 					<c:forEach var="f" items="${frdAll}" begin="0" end="${fn:length(frdAll)}" step="1">
 						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
@@ -229,11 +238,12 @@ width:33%;
 							    <img class="frdPic" src="resources/img/home/default.png"><br>
 							</c:if>
 						    <b>${f.name }</b><br>
-							<button class ="requestFrd"onclick="btnchange(${f.m_no})">친구신청</button>
+						    <input type="hidden" id="addReq${f.m_no}">
+							<button class ="requestFrd" id="addBtn${f.m_no}" onclick="addFrd(${f.m_no})">친구신청</button>
 						  </div>
 						</div>
 				    </c:forEach>
-				</c:if>
+				</c:if> --%>
 				<br>
 				<c:if test="${not empty frdto }">
 					<a href="" style="font-size: 18px;text-align:center;">모두보기</a><br />
@@ -242,46 +252,14 @@ width:33%;
 		</div>
 		<br>
 	</div>
-	<div style="height: 100%;width: 15%;float: right;margin-top:1%display: inline-block;padding:5px;background-color:#F9F9F9">
-		<img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;">
+		<div style="height: 100%;width: 15%;float: right;margin-top:1%display: inline-block;padding:5px;background-color:#F9F9F9">
+		<a href="${pageContext.request.contextPath}/home.do" ><img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;"></a>
 		<hr>
 		<div style="text-align:center">
-			<a href="#">About</a>&ensp;<a href="#">Help Center</a>&ensp;<a href="#">Privacy & Terms</a><br>
+			<a href="#">About</a>&ensp;<a href="${pageContext.request.contextPath}/helpcenter.do">Help Center</a>&ensp;<a href="${pageContext.request.contextPath}/settings.do">Privacy & Terms</a><br>
 			<p style="color:#646464">KITRI Digital Convergence 25th<br><span class="badge badge-info">DevLink</span>&ensp;DevLink@2018</p>
 		</div>
 	</div>
 </div>
-<!-- <script>
-var cnt = 0;
-$('.requestFrd').on('click', function(){
-	cnt++;
-	if(cnt > 1){
-		$('button').removeClass('selected');
-		cnt = 0;
-	}else{
-		$(this).addClass('selected');
-	}
-});
-
-$('form').submit(function(){
-	console.log("form()");
-	var f=$(this);
-    $.ajax({      
-        type:'POST',  
-        url:'delfrdfrom.do',      
-        data: $(this).serialize(),      
-        success:function(data){
-        	if(data.trim()=='1'){
-        		$(f).remove();
-        	}
-        },
-        error:function(e){
-            alert(e.responseText);  
-        }
-    });
-	return false;
-});
-
-</script> -->
 </body>
 </html>

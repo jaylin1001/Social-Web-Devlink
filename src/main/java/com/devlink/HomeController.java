@@ -43,7 +43,6 @@ public class HomeController {
 		String rPwd=rpwd(pwd);
 		Member m=service.login(id,rPwd);
 		if(m!=null) {
-			System.out.println("�씪移�!");
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("no", m.getM_no());
@@ -62,7 +61,23 @@ public class HomeController {
 		}
 	}
 	private String rpwd(String pwd) {
-		return pwd;
+		String result ="";
+		for(int i=0;i<pwd.length();i++){
+			char c=pwd.charAt(i);
+			if(c>='a'&&c<='z'){
+				c=(char) (((c-97+10)%26)+97);
+				result+=c;
+			}else if(c>='A'&&c<='Z'){
+				c=(char) (((c-65+5)%26)+65);
+				result+=c;
+			}else if(c>='0'&&c<='9'){
+				c=(char) (((c-48+3)%10)+48);
+				result+=c;
+			}else{
+				result+=c;
+			}
+		}
+		return result;
 	}
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
