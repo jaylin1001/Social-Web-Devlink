@@ -2,17 +2,34 @@
 $(function(){
 	$("#nav-drop").hover(function() {
 	   $("#nav-drop-detail").addClass("show");
-	   console.log("asdfa");
 	}, function(){
 	    $("#nav-drop-detail").removeClass("show");
 	});
 
-	$('#ccccc').css('width',$('#sssss').css('width'));
-	$('#ccccc').css('height','15px');	
-	$('#ccccc').css('float','right');	
-	$('#ccccc').css('margin-right','95px');	
-	$('#ccccc').css('z-index','99');
+	$('#rcmdBar').css('width',$('#schInput').css('width'));
+	$('#rcmdBar').css('height','0px');	
+	$('#rcmdBar').css('float','right');	
+	$('#rcmdBar').css('margin-right','95px');	
+	$('#rcmdBar').css('z-index','99');
 	
+	$('#schInput').focus(function(){
+		
+	});
+	$('#schInput').focusout(function(){/* 
+		$('#rcmdBar').css('display','none'); */
+	});
+	$('#schInput').keyup(function () {
+		$('#rcmdBar').css('display','initial');
+		 $.ajax({
+	        type:'POST',  
+	        url:'searchrecommand.do',      
+	        data: {name : $('#schInput').val()},
+	        success:function(data){
+	        	console.log(data);
+	        	$('#rcmdBar').html(data);
+	        }
+	    });
+	});
 });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -42,13 +59,10 @@ $(function(){
         	<!-- <li class="nav-item" id="logout"><a class="nav-link" href="#">Logout</a></li> -->
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="sssss">
+	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="schInput">
 	      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 	    </form>
 	</div>
 </nav>
-<div class="list-group" id="ccccc" style="position:relative;display:none;">
-	<a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-	<a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-	<a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+<div class="list-group" id="rcmdBar" style="position:relative;display:none;">
 </div>

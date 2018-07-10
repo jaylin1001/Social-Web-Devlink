@@ -61,4 +61,5 @@ public interface MemberMapper {
 	
 	void insertSearch(Search s);
 	HashMap<String, String> function(String name);
+	ArrayList<Search> selectSRResult(String name);
 }

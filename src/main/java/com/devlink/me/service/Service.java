@@ -11,6 +11,7 @@ import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
+import com.devlink.dao.Search;
 import com.devlink.dao.Skill;
 import com.devlink.dao.TestScore;
 
@@ -38,4 +39,5 @@ public interface Service {
 	void addPath(Img img);
 	HashMap<String, String> getPath(String id);
 	Member login(String id, String pwd);
+	ArrayList<Search> srResult(String name);
 }

@@ -204,4 +204,7 @@
 	<select id="function" resultMap="picPath" parameterType="String">
 		SELECT FN_GET_DIV_KO_CHAR(#{name}) as path FROM DUAL
 	</select>
+	<select id="selectSRResult" resultMap="SearchResult" parameterType="String">
+		SELECT * FROM search WHERE nm_div LIKE '%'||#{name}||'%' 
+	</select>
 </mapper>

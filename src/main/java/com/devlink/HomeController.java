@@ -1,5 +1,7 @@
 package com.devlink;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.devlink.dao.Member;
+import com.devlink.dao.Search;
 import com.devlink.me.service.Service;
 
 /**
@@ -38,6 +42,17 @@ public class HomeController {
 		return "index";
 	}
 
+	@RequestMapping(value="/searchrecommand.do",method = RequestMethod.POST)
+	public ModelAndView searchRecommand(@RequestParam(value="name")String name) {
+		System.out.println(name);
+		ModelAndView mav = new ModelAndView("srResult");
+		if(name!=null&&!name.equals("")) {
+			ArrayList<Search> srResult = service.srResult(name);
+	    	mav.addObject("srResult", srResult);
+		}
+		return mav;
+	}
+	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest req,@RequestParam(value = "id") String id,@RequestParam(value = "pwd") String pwd) {
 		String rPwd=rpwd(pwd);

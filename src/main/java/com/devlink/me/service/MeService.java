@@ -16,6 +16,7 @@ import com.devlink.dao.Img;
 import com.devlink.dao.Language;
 import com.devlink.dao.Member;
 import com.devlink.dao.Patent;
+import com.devlink.dao.Search;
 import com.devlink.dao.Skill;
 import com.devlink.dao.TestScore;
 import com.devlink.me.model.MemberMapper;
@@ -178,5 +179,154 @@ public class MeService implements Service {
 		map.put("pwd", pwd);
 		Member m=mapper.selectForLogin(map);
 		return m;
+	}
+
+	@Override
+	public ArrayList<Search> srResult(String name) {
+		mapper = sqlSession.getMapper(MemberMapper.class);
+		HashMap<String,String> hmap  = mapper.function(name);
+		name=hmap.get("path");
+		name=replace(name);
+		System.out.println("변환 : " +name);
+		return mapper.selectSRResult(name);
+	}
+	
+
+	private String replace(String nmdiv) {
+		String result="";
+		for(int i=0;i<nmdiv.length();i++) {
+			if(nmdiv.charAt(i)=='ᄀ') {
+				result+="ㄱ";
+			}else if(nmdiv.charAt(i)=='ᆨ') {
+				result+="ㄱ";
+			}else if(nmdiv.charAt(i)=='ᄂ') {
+				result+="ㄴ";
+			}else if(nmdiv.charAt(i)=='ᆫ') {
+				result+="ㄴ";
+			}else if(nmdiv.charAt(i)=='ᄃ') {
+				result+="ㄷ";
+			}else if(nmdiv.charAt(i)=='ᆮ') {
+				result+="ㄷ";
+			}else if(nmdiv.charAt(i)=='ᄅ') {
+				result+="ㄹ";
+			}else if(nmdiv.charAt(i)=='ᆯ') {
+				result+="ㄹ";
+			}else if(nmdiv.charAt(i)=='ᄆ') {
+				result+="ㅁ";
+			}else if(nmdiv.charAt(i)=='ᆷ') {
+				result+="ㅁ";
+			}else if(nmdiv.charAt(i)=='ᄇ') {
+				result+="ㅂ";
+			}else if(nmdiv.charAt(i)=='ᆸ') {
+				result+="ㅂ";
+			}else if(nmdiv.charAt(i)=='ᄉ') {
+				result+="ㅅ";
+			}else if(nmdiv.charAt(i)=='ᆺ') {
+				result+="ㅅ";
+			}else if(nmdiv.charAt(i)=='ᄋ') {
+				result+="ㅇ";
+			}else if(nmdiv.charAt(i)=='ᆼ') {
+				result+="ㅇ";
+			}else if(nmdiv.charAt(i)=='ᄌ') {
+				result+="ㅈ";
+			}else if(nmdiv.charAt(i)=='ᆽ') {
+				result+="ㅈ";
+			}else if(nmdiv.charAt(i)=='ᄎ') {
+				result+="ㅊ";
+			}else if(nmdiv.charAt(i)=='ᆾ') {
+				result+="ㅊ";
+			}else if(nmdiv.charAt(i)=='ᄏ') {
+				result+="ㅋ";
+			}else if(nmdiv.charAt(i)=='ᆿ') {
+				result+="ㅋ";
+			}else if(nmdiv.charAt(i)=='ᄐ') {
+				result+="ㅌ";
+			}else if(nmdiv.charAt(i)=='ᇀ') {
+				result+="ㅌ";
+			}else if(nmdiv.charAt(i)=='ᄑ') {
+				result+="ㅍ";
+			}else if(nmdiv.charAt(i)=='ᇁ') {
+				result+="ㅍ";
+			}else if(nmdiv.charAt(i)=='ᄒ') {
+				result+="ㅎ";
+			}else if(nmdiv.charAt(i)=='ᇂ') {
+				result+="ㅎ";
+			}else if(nmdiv.charAt(i)=='ᅡ') {
+				result+="ㅏ";
+			}else if(nmdiv.charAt(i)=='ᅣ') {
+				result+="ㅑ";
+			}else if(nmdiv.charAt(i)=='ᅥ') {
+				result+="ㅓ";
+			}else if(nmdiv.charAt(i)=='ᅧ') {
+				result+="ㅕ";
+			}else if(nmdiv.charAt(i)=='ᅩ') {
+				result+="ㅗ";
+			}else if(nmdiv.charAt(i)=='ᅭ') {
+				result+="ㅛ";
+			}else if(nmdiv.charAt(i)=='ᅮ') {
+				result+="ㅜ";
+			}else if(nmdiv.charAt(i)=='ᅲ') {
+				result+="ㅠ";
+			}else if(nmdiv.charAt(i)=='ᅳ') {
+				result+="ㅡ";
+			}else if(nmdiv.charAt(i)=='ᅵ') {
+				result+="ㅣ";
+			}else if(nmdiv.charAt(i)=='ᅢ') {
+				result+="ㅐ";
+			}else if(nmdiv.charAt(i)=='ᅤ') {
+				result+="ㅒ";
+			}else if(nmdiv.charAt(i)=='ᅦ') {
+				result+="ㅔ";
+			}else if(nmdiv.charAt(i)=='ᅨ') {
+				result+="ㅖ";
+			}else if(nmdiv.charAt(i)=='ᅬ') {
+				result+="ㅚ";
+			}else if(nmdiv.charAt(i)=='ᅫ') {
+				result+="ㅙ";
+			}else if(nmdiv.charAt(i)=='ᅱ') {
+				result+="ㅟ";
+			}else if(nmdiv.charAt(i)=='ᅴ') {
+				result+="ㅢ";
+			}else if(nmdiv.charAt(i)=='ᄁ') {
+				result+="ㄲ";
+			}else if(nmdiv.charAt(i)=='ᆩ') {
+				result+="ㄲ";
+			}else if(nmdiv.charAt(i)=='ᄄ') {
+				result+="ㄸ";
+			}else if(nmdiv.charAt(i)=='ᄈ') {
+				result+="ㅃ";
+			}else if(nmdiv.charAt(i)=='ᄊ') {
+				result+="ㅆ";
+			}else if(nmdiv.charAt(i)=='ᆻ') {
+				result+="ㅆ";
+			}else if(nmdiv.charAt(i)=='ᄍ') {
+				result+="ㅉ";
+			}else if(nmdiv.charAt(i)=='ᆪ') {
+				result+="ㄳ";
+			}else if(nmdiv.charAt(i)=='ᆬ') {
+				result+="ㄵ";
+			}else if(nmdiv.charAt(i)=='ᆭ') {
+				result+="ㄶ";
+			}else if(nmdiv.charAt(i)=='ᆰ') {
+				result+="ㄺ";
+			}else if(nmdiv.charAt(i)=='ᆱ') {
+				result+="ㄻ";
+			}else if(nmdiv.charAt(i)=='ᆲ') {
+				result+="ㄼ";
+			}else if(nmdiv.charAt(i)=='ᆳ') {
+				result+="ㄽ";
+			}else if(nmdiv.charAt(i)=='ᆴ') {
+				result+="ㄾ";
+			}else if(nmdiv.charAt(i)=='ᆶ') {
+				result+="ㅀ";
+			}else if(nmdiv.charAt(i)=='ᆹ') {
+				result+="ㅄ";
+			}else if(nmdiv.charAt(i)=='＃') {
+				result+="";
+			}else if(nmdiv.charAt(i)==' ') {
+				result+=" ";
+			}
+		}
+		return result;
 	}
 }
