@@ -65,6 +65,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest req,@RequestParam(value = "id") String id,@RequestParam(value = "pwd") String pwd) {
+		HttpSession session = req.getSession();
 		String shapwd="";
 		try {
 			shapwd=SHA2Util.encrypt(pwd, "SHA-256");
@@ -74,7 +75,6 @@ public class HomeController {
 		}
 		Member m=service.login(id,shapwd);
 		if(m!=null) {
-			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("no", m.getM_no());
 			session.setAttribute("name", m.getName());
@@ -91,25 +91,6 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
-	/*private String rpwd(String pwd) {
-		String result ="";
-		for(int i=0;i<pwd.length();i++){
-			char c=pwd.charAt(i);
-			if(c>='a'&&c<='z'){
-				c=(char) (((c-97+10)%26)+97);
-				result+=c;
-			}else if(c>='A'&&c<='Z'){
-				c=(char) (((c-65+5)%26)+65);
-				result+=c;
-			}else if(c>='0'&&c<='9'){
-				c=(char) (((c-48+3)%10)+48);
-				result+=c;
-			}else{
-				result+=c;
-			}
-		}
-		return result;
-	}*/
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpServletRequest req) {
@@ -126,10 +107,6 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/msg", method=RequestMethod.GET)
-	public String msg() {
-		return "me/viewMyProfile";
-	}
 	
 	@RequestMapping(value="/me", method=RequestMethod.GET)
 	public String me() {

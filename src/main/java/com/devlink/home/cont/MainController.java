@@ -70,7 +70,7 @@ public class MainController {
 		System.out.println("cmcm"+cm);
 		cm.setW_no(no);
 		service.cmtinsert(cm);
-		mav = new ModelAndView("redirect:/home");
+		mav = new ModelAndView("redirect:/home.do");
 		}
 		return mav;
 	}
@@ -101,7 +101,7 @@ public class MainController {
 			//markdown
 		}
 		service.writeinsert(hc);
-		return "redirect:/home";
+		return "redirect:/home.do";
 	}
 	@RequestMapping(value="/docdel.do", method=RequestMethod.POST)
 	public String docdel(@ModelAttribute String doc_num)throws Exception {

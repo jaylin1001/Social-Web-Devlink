@@ -115,7 +115,7 @@ display:inline;
 	           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
 	           </c:if>
 	           <c:if test="${not empty sessionScope.path }">
-	            <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
+	            <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${m.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
 	           </c:if>
 	           <div id="static1"></div>
 	           <div id="static2" style="background-color: white">
@@ -139,7 +139,7 @@ display:inline;
 				    <table>
 				    	<tr>
 				    		<td>
-				    		<c:if test="${empty m.path}"><img src="resources/img/me/default.png" style="float:left;max-height: 60%;"></c:if>
+				    		<c:if test="${empty m.path}"><img src="resources/img/me/default.png" style="float:left;max-height: 60%;max-width:100;max-height:150px"></c:if>
 				    		<c:if test="${not empty m.path}"><img src="resources/img/profile/${m.path}" style="float:left;max-height: 60%;"></c:if>
 				    		</td>
 				    		<td colspan="2">

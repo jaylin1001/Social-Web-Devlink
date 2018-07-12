@@ -1,4 +1,3 @@
-
 <script>
 $(function(){
 	$("#nav-drop").hover(function() {
@@ -13,12 +12,12 @@ $(function(){
 	$('#rcmdBar').css('margin-right','95px');	
 	$('#rcmdBar').css('z-index','99');
 	
-	$('#schInput').focus(function(){
+	/* $('#schInput').focus(function(){
 		
 	});
 	$('#schInput').focusout(function(){/* 
-		$('#rcmdBar').css('display','none'); */
-	});
+	
+	}); */
 	$('#schInput').keyup(function () {
 		$('#rcmdBar').css('display','initial');
 		 $.ajax({
@@ -69,7 +68,7 @@ $(function(){
 		</ul>
 		<form class="form-inline my-2 my-lg-0" id="schInputForm">
 	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="schInput">
-	      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+	      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search!</button>
 	    </form>
 	</div>
 </nav>

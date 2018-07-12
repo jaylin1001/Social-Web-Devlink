@@ -183,8 +183,11 @@ Button {
 <!-- include summernote css/js -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-	
-
+<script>
+$(function() {
+	$('#schInputForm').css('float','right');
+});
+</script>
 </head> 
 <body>
 	<%@include file="devnav.jsp"%>
@@ -234,8 +237,7 @@ Button {
 		          </div>
 		        </div> --%>
 			<form action="${pageContext.request.contextPath}/docwrite.do" method = "post">
-				<div id="mainbar" 
-					style="margin-left: 25%; margin-right: 15%; box-shadow: 2px 2px 2px 2px #888888">
+				<div id="mainbar" style="margin-left: 25%; margin-right: 15%; box-shadow: 2px 2px 2px 2px #888888">
 					<div style="padding: 10px; border-bottom: 1px solid #D8D8D8">
 					  <c:if test="${empty sessionScope.path }">
 			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>

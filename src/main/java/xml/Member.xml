@@ -172,7 +172,7 @@
 	
 	<!-- 다은 -->
 	<select id="select" resultMap="MemberResult" parameterType="String">
-		select * from member where id=#{id}
+		select m_no,id,pwd,TO_CHAR(joindate,'YYYY/MM/DD') joindate,outdate,name,address,email,phone,headline,path from member where id=#{id}
 	</select>
 	<select id="selectpwd" resultMap="MemberResult" parameterType="String">
 		select * from member where pwd=#{pwd}

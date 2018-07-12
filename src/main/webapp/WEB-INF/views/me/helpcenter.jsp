@@ -22,16 +22,16 @@
 	integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
 	crossorigin="anonymous"></script>
 <script>
-
-	$(document).ready(function(){
-		$('#summernote').summernote({
-			
-
-	        height: 500
-			
-		});
-
+$(document).ready(function(){
+	$('#summernote').summernote({
+        height: 500
 	});
+	$('#write').click(function(){
+		$("form").submit(); 
+		alert('문의가 등록되었습니다');
+	});
+	$('div.note-children-container').remove();
+});
 </script>
 
 </head>
@@ -79,41 +79,35 @@ display:none;
 
 <body>
 <%@include file="../home/devnav.jsp"%>
-<div id="contents">
+<div id="contents" style="background-color:#F9F9F9">
 	<div class="hcheader">
 		<div id="hcsubject1">
 			<h4><b>DevLink 고객센터</b></h4>
 		</div>
 		<div id="hcsubject2">
-			<h2>daeun 님! 무엇을 도와드릴까요?</h2>
-			<br>
-			<div style="float:right;">
-			<form class="form-inline my-2 my-lg-0" id="searchbar" style="">	
-      			<input class="form-control mr-sm-2" type="text" style="width:300px; padding:5px" placeholder="도움말 검색" >
-      			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    		</form>
-			</div>
-			<br><br>
+			<h2>${sessionScope.name}(<b id="id" name="id">${sessionScope.id}</b>) 님! 무엇을 도와드릴까요?</h2>
+			<br>			
+		
 		</div>
 	</div>
-	<section>
-	<div style="padding:60px">
+	<div>
+	<div style="height:100%;width: 20%;float: left;display: inline-block;background-color:#F9F9F9;padding-left:2%">
+			<a href="${pageContext.request.contextPath}/helpcenter.do" style="padding:10px"><h4><b>문의하기</b></h4></a>
+			<a href="${pageContext.request.contextPath}/helpcenterlist.do" style="padding:10px"><h4><b>나의 문의함</b></h4></a>
+	</div>
+	<div style="width:65%;float:none;display: inline-block;background-color:#F9F9F9">
+	<div style="padding:50px">
 		<h3><b>문의하기</b></h3><hr>
-		
+		<form action="${pageContext.request.contextPath}/write.do" method="post">
 		<div class="form-group">
   			<label class="col-form-label" for="inputDefault">제목</label>
-  			<input type="text" class="form-control"style="width:700px">
+  				<input type="text" class="form-control"style="width:700px" id="b_title" name="b_title">
 		</div>
-		 <div class="form-group">
-      <label for="exampleInputFile">파일첨부</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" style="width:700px" aria-describedby="fileHelp">
-    </div>
 		    <div class="form-group">
       <label for="exampleTextarea">내용</label>
-      <div style="width:700px; hieght:700px">
-         <div id="summernote"></div>
+      <div style="width:100%;">
+         <textarea id="summernote" name="b_contents"></textarea>
       </div>
-
       <br>
     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -121,16 +115,17 @@ display:none;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-   		<button type="button" class="btn btn-outline-success" style="width:150px">보내기</button>
+   		<button type="button" class="btn btn-outline-success" style="width:150px; height:60px;float:center" id="write">글쓰기</button>
+	</form>
 	</div>
-	</section>
-	<aside style="float:right; padding:30px;">
+	</div>
+	</div>
+	<%-- <aside style="float:right; padding:30px;">
 		<div>
-			<a href="#" style="padding:10px"><h4><b>문의하기</b></h4></a>
-			<a href="#" style="padding:10px"><h4><b>나의 문의함</b></h4></a>
+			<a href="${pageContext.request.contextPath}/helpcenter.do" style="padding:10px"><h4><b>문의하기</b></h4></a>
+			<a href="${pageContext.request.contextPath}/helpcenterlist.do" style="padding:10px"><h4><b>나의 문의함</b></h4></a>
 		</div>
-	</aside>
-
+	</aside> --%>
 </div>
 
 <%@include file="../home/devfoot.jsp"%>

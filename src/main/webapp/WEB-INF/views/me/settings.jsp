@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,7 +207,7 @@ $(function(){
 	<div class="stheader">
 		<div id="subject">
 			<br>
-			<h2><b>daeun lee님의 개인정보설정</b></h2>
+			<h2><b>${sessionScope.name}님의 개인정보설정</b></h2>
 		</div>
 		<div id="connection">
 			<h3>1촌 1명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -214,10 +216,20 @@ $(function(){
 		<div id="subject2">
 			<table>
 				<tr>
-					<td rowspan="2"><img src="resources/img/me/profile.png" style="width:120px;height:120px;padding:15px"></td><td><h4>daeun lee님</h4></td>
+					<td rowspan="2">
+						<c:if test="${empty sessionScope.path }">
+							<img src="resources/img/me/profile.png" style="width:120px;height:120px;border: 2px solid gray; border-radius: 50%;">
+						</c:if>
+						<c:if test="${not empty sessionScope.path }">
+            				<img src="resources/img/profile/${sessionScope.path}" style="width:120px;height:120px;border: 2px solid gray; border-radius: 50%;">
+          				</c:if>
+					</td><td><h4 style="margin-top:5px;">&ensp;&nbsp;${sessionScope.name}님</h4></td>
 				</tr>
 				<tr>
-					<td><h5><b id="id">id1</b></h5><br><h5>가입일 : 2018년 06월 20일</h5></td>
+					<td>
+						<h5><b id="id">&ensp;&ensp;${sessionScope.id}</b></h5>					
+							<h5>&ensp;&ensp;가입일 : ${m.joindate} </h5>					
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -241,7 +253,7 @@ $(function(){
       				<tr>
       					<th scope="col"id="text1">
       						<div class="under"><h5><b>등록된 이메일 주소:</b></h5></div>
-      						<div class="under"><h5>lde3831112@gmail.com</h5></div>
+      						<div class="under"><h5>${m.email}</h5></div>
       						<div class="under"><a href="javascript:f();" id="enroll_email" style="width:300px">이메일 주소 등록</a></div>
       						<div id="text6">
       						<div class="under" >이메일 주소</div>
@@ -264,8 +276,8 @@ $(function(){
       			<thead>
       			<tr>
       				<th scope="col" id="text2">
-      					<div class="under"><h5>등록하신 전화번호가 없습니다.</h5></div>
-      					<div class="under"><h6>전화번호를 등록하시면 계정을 더욱 안전하게 보호하실 수 있습니다. 회원님의 전화번호를 아는 사람은 회원님을 쉽게 찾아 1촌을 맺을 수도 있습니다.</h6></div>
+      					<div class="under"><h5><b>등록된 전화번호:</b></h5></div>
+      					<div class="under"><h6>${m.phone}</h6></div>
       					<div class="under"><a href="javascript:g();" id="enroll_tell">전화번호 등록</a></div>
       					<div id="text7">
       					<div class="under" >국가</div>
@@ -289,8 +301,18 @@ $(function(){
       			<thead>
       			<tr>
       				<th scope="col" id="text8">
-      					<div class="under"><h5>등록하신 주소가 없습니다.</h5></div>
-      					<div class="under"><h6>주소를 등록하시면 계정을 더욱 유용하게 서비스를 즐길 수 있습니다.</h6></div>
+      					<div class="under">
+      						<c:if test="${empty m.address}"><h5>등록하신 주소가 없습니다.</h5></c:if>
+      						<c:if test="${not empty m.address}"><h5>${m.address}</h5></c:if>		
+      					</div>
+      					<div class="under">
+      						<c:if test="${empty m.address}">
+      							<h6>주소를 등록하시면 계정을 더욱 유용하게 서비스를 즐길 수 있습니다.</h6>
+      						</c:if>
+      						<c:if test="${not empty m.address}">
+      							<h6>새로운 주소로 주소수정이 가능합니다.</h6>
+      						</c:if>
+      					</div>
       					<div class="under" >국가</div>
  							<div class="under"><input type="text" style="width:300px;" value="대한민국" readonly ></div><br>
  							<div class="under" >주소</div>
@@ -333,7 +355,7 @@ $(function(){
       				</th>
       			</tr>
       			</thead>
-      			<tr>
+      			<!-- <tr>
       				<thead>
       	 				<th scope="col" style="padding:20px"><img src="resources/img/me/setting.png" style="width:50px;height:50px;padding:5px">
 	      			<b style="font-size:2em">공개 범위</b></th>
@@ -378,7 +400,7 @@ $(function(){
 							<div class="under" style="text-indent:20%"><button type="button" class="btn btn-outline-info">확인</button></div>
       					</th>
       				</tr>
-      			</thead>
+      			</thead> -->
 		</table>
 	</div>
 
