@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="com.devlink.msg.MsgMapper">
+<resultMap type="com.devlink.msg.Friend" id="frdResult">
+	<result column="m_no" property="frd_no"/>
+	<result column="name" property="frd_name"/>
+</resultMap>
+<select id="selectFrd" resultMap="frdResult" parameterType="String">
+select m_no, name 
+from member 
+where m_no IN (
+select frd_to 
+from frd 
+where frd_status=2 and frd_from=#{my_id}) 
+or m_no IN 
+(select frd_from 
+from frd 
+where frd_status=2 and frd_to=#{my_id})
+</select>
+</mapper>

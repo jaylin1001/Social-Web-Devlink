@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="com.devlink.msg.MsgMapper">
+<resultMap type="com.devlink.msg.Message" id="msgResult">
+	<result column="msg_from" property="msg_from"/>
+	<result column="msg_to" property="msg_to"/>
+	<result column="msg_date" property="msg_date"/>
+	<result column="msg_contents" property="msg"/>
+</resultMap>
+<!-- <insert id="insert" parameterType="com.devlink.msg.Message">
+	insert into shoporder values(seq_shoporder.nextval, #{consumer_id},
+	#{pro_num}, #{quantity}, #{tel}, #{address}, #{result})
+</insert> -->
+<select id="selectMsg" resultMap="msgResult">
+	select msg_from, msg_to, msg_date, msg_contents 
+	from msg 
+	where (msg_from=#{from_id} and msg_to=#{to_id}) or (msg_from=#{to_id} and msg_to=#{from_id})
+	order by msg_date 
+</select>
+<insert id="insertMsg" parameterType="String">
+insert into msg values 
+(MSG_SEQ.NEXTVAL, #{from_id}, #{to_id}, sysdate, #{msg})
+</insert>
+
+
+</mapper>

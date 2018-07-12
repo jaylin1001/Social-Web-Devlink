@@ -53,7 +53,7 @@ $(function(){
 			<li class="nav-item" id="home"><a class="nav-link" href="${pageContext.request.contextPath }/home.do">Home<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item" id="network"><a class="nav-link" href="${pageContext.request.contextPath }/network.do">Network</a></li>
 			<!-- <li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li> -->
-			<li class="nav-item" id="msg"><a class="nav-link" href="#">Messaging</a></li>
+			<li class="nav-item" id="msg"><a class="nav-link" href="${pageContext.request.contextPath }/msg/msgmain.do">Messaging</a></li>
         	<!-- <li class="nav-item" id="me"><a class="nav-link" href="#">Me</a></li> -->
         	<li id="nav-drop" class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle"  href="${pageContext.request.contextPath }/viewmyprofile.do" role="button" aria-haspopup="true" aria-expanded="true">Me</a>
