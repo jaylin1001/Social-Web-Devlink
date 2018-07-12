@@ -125,18 +125,6 @@ public class HomeController {
 		}
 		return "redirect:/";
 	}
-
-	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-	public String home(HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		if(session==null)
-			return "redirect:/";
-		else{
-			if(req.getSession(false).getAttribute("id")==null)
-				return "redirect:/";
-		}
-		return "home/home";
-	}
 	
 	@RequestMapping(value="/msg", method=RequestMethod.GET)
 	public String msg() {

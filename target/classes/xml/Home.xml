@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devlink.home.model.HomeMapper">
+<resultMap id="docselect" type="com.devlink.dao.HomeContents">
+		<result column="doc_num" property="doc_num" />
+		<result column="m_no" property="m_no" />
+		<result column="m_name" property="m_name" />
+		<result column="title" property="title" />
+		<result column="write_date" property="date" />
+		<result column="doc_contents" property="contents" />
+		<result column="doc_kind" property="doc_kind" />
+		<result column="doc_level" property="level" />
+		<result column="open_range" property="open_range" />
+		<result column="cmt" property="cmt" />
+		<result column="cmt_level" property="cmt_level" />
+		<result column="path" property="path"/>
+	</resultMap>
+	
+	<select id="docselect" resultMap="docselect" parameterType="String">
+		select hc.*, m.name as m_name, m.path as path 
+		from home_contents hc, member m
+		where m.m_no = hc.m_no
+		and hc.m_no IN (
+		select frd_to from frd
+		where frd_from =#{m_no}
+		and frd_status='2'
+		UNION
+		select frd_from from frd
+		where frd_to =#{m_no}
+		and frd_status='2'
+		UNION
+		select #{m_no} a from DUAL
+		)
+		order by hc.doc_num desc
+	</select>
+	
+	<select id="doccmtselect" resultMap="docselect" parameterType="String">
+		select c.doc_num, m.name as m_no, c.cmt, c.cmt_level, m.path as path
+		from cmt c, member m 
+		where m.m_no=c.w_no
+		and doc_num =#{doc_num}
+		order by c.doc_num desc
+	</select>
+	
+	<insert id="cmtinsert" parameterType="com.devlink.dao.HomeContents">
+		insert into cmt values(#{doc_num},#{w_no},#{cmt},0)
+	</insert>
+	
+	<insert id="writeinsert" parameterType="com.devlink.dao.HomeContents">
+		INSERT INTO home_contents values(doc_num_seq.nextval, 
+		#{m_no}, 
+		#{title},
+		sysdate,
+		#{contents},
+		#{doc_kind},
+		0,
+		#{open_range})
+	</insert>
+	<delete id="docnumdelete" parameterType="String">
+		delete from home_contents where doc_num=#{doc_num}
+	</delete>
+</mapper>
