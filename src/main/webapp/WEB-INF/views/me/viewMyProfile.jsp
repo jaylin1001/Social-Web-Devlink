@@ -29,6 +29,79 @@ display:inline;
     opacity:0.5 !important;
     z-index:0;
 }
+
+
+#static1 {
+   width: 220px;
+   height: 60px;
+   position: static;
+   border: 1px solid #D8D8D8;
+   background-image: url("resources/img/home/userbar.jpg");
+}
+
+#static2 {
+   width: 220px;
+   height: 100px;
+   position: static;
+   border: 1px solid #D8D8D8;
+   padding: 30px;
+}
+
+#static3 {
+   width: 220px;
+   height: 100px;
+   position: static;
+   border: 1px solid #D8D8D8;
+   padding: 20px;
+   background-color: white;
+   padding: 20px;
+}
+
+#static4 {
+   width: 220px;
+   height: 100px;
+   background-color: #E8E8E8;
+   border: 1px solid #D8D8D8;
+   padding: 20px;
+   position: static;
+   background-color: #dcdcdc;
+}
+
+#userbar {
+   position: fixed;
+   margin-left: 1%;
+   margin-top: 1%;
+   text-align: center;
+   border-color: #888888;
+   border-width: 1px;
+   border-style: so
+   /* box-shadow: 2px 2px 2px 2px #888888; */
+}
+#firstbar {
+	/* text-align:center; */
+	width:82%;
+	background-color: white;
+	margin-top:1%
+}
+#mainbar {
+	width:82%;
+	background-color: white;
+	text-align:center;
+}
+#userbar table, th, td {
+    border: 1px solid #bcbcbc;
+    padding: 10px;
+  }
+  
+#userbar table {
+    width: 100%;
+    height: 600px;
+    text-align: center;
+    table-layout:fixed;
+  }
+#userbar b {
+   font-size: 20px;
+}
 </style>
 <script>
 </script>
@@ -36,10 +109,29 @@ display:inline;
 <body style="background-color:#F9F9F9">
 	<%@include file="../home/devnav.jsp"%>
 	<div id="contents" style="text-align:center;">
-		<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
-			
+		<div style="height:100%;width: 19%;float: left;display: inline-block;background-color:#F9F9F9">
+			<div id=userbar>
+				<c:if test="${empty sessionScope.path }">
+	           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
+	           </c:if>
+	           <c:if test="${not empty sessionScope.path }">
+	            <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
+	           </c:if>
+	           <div id="static1"></div>
+	           <div id="static2" style="background-color: white">
+	              <a href="${pageContext.request.contextPath}/viewmyprofile.do" style="color:inherit;text-decoration: none;"><b style="font-size: 20px">${sessionScope.name}</b></a><br /> <a href="${pageContext.request.contextPath}/network.do">친구관리</a>
+	           </div>
+	           <div id="static3">
+	              <h4 style="color: dodgerblue; font-size: 20px">친구 <span id="numberoffrd">${fn:length(frd)}</span>명</h4>
+	              <h5 style="font-size: 15px">친구찾기</h5>
+	           </div>
+	           <div id="static4">
+	              	유료회원으로 업그레이드
+	              <p><a href="">프리미엄 업그레이드</a>
+	           </div>
+	        </div>
 		</div>
-		<div style="width:70%;float:none;display: inline-block;background-color:#F9F9F9">
+		<div style="width:66%;float:none;display: inline-block;background-color:#F9F9F9">
 			<div class="card border-light" style="width:100%;">
 			<div class="card-header" style="padding:0px;border: none;"><img src="resources/img/me/profileback4.png" style="border: none;width:100%;"></div>
 			    <div class="card border-light">
@@ -79,8 +171,8 @@ display:inline;
 									    <li class="list-group-item"><i class="fas fa-university"></i>&emsp;${e.title }</li>
 								    </c:forEach>
 								</c:if>
-							    <li class="list-group-item"><a href="#"><i class="fas fa-address-book"></i>&emsp;See contact info</a></li>
-							    <li class="list-group-item"><a href="#"><i class="fas fa-users"></i>&emsp;See connections (21)</a></li>
+							    <li class="list-group-item"><a href="${pageContext.request.contextPath}/network.do"><i class="fas fa-address-book"></i>&emsp;See contact info</a></li>
+							    <li class="list-group-item"><a href="${pageContext.request.contextPath}/friendlist.do"><i class="fas fa-users"></i>&emsp;See connections (${fn:length(frd)})</a></li>
 							  </ul>
 				    		</td>
 				    	</tr>
@@ -97,7 +189,7 @@ display:inline;
 					</div>
 			  </div>
 			</div>
-			<div class="card border-light mb-3" style="width:100%;display: inline-block;">
+			<!-- <div class="card border-light mb-3" style="width:100%;display: inline-block;">
 			  <div class="card-header">Dashboard</div>
 			  <div class="card-body" style="display:inline-block;width:33%">
 			    <h5 class="card-title"><a href="#">5</a></h5>
@@ -111,7 +203,7 @@ display:inline;
 			    <h5 class="card-title"><a href="#">2</a></h5>
 			    <p class="card-text">Search Appearance</p>
 			  </div>
-			</div>
+			</div> -->
 			<div class="card border-light mb-3" style="width:100%;display: inline-block;">
 			  <div class="card-header">Experience&ensp;&ensp;<a href="javascript:openAddExpModal();"><i class="fas fa-plus"></i></a></div>
 			  <div class="card-body"style="text-align:left;">
@@ -225,11 +317,11 @@ display:inline;
 			  </div>
 			</div>
 		</div>
-		<div style="height: 100%;width: 15%;float: right;display: inline-block;padding:5px;background-color:#F9F9F9">
-			<img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;">
+		<div style="height: 100%;width: 15%;float: right;margin-top:1%display: inline-block;padding:5px;background-color:#F9F9F9">
+			<a href="${pageContext.request.contextPath}/home.do" ><img src="resources/img/me/rightDev.png" style="max-width:100%;margin-bottom:6px;"></a>
 			<hr>
 			<div style="text-align:center">
-				<a href="#">About</a>&ensp;<a href="#">Help Center</a>&ensp;<a href="#">Privacy & Terms</a><br>
+				<a href="#">About</a>&ensp;<a href="${pageContext.request.contextPath}/helpcenter.do">Help Center</a>&ensp;<a href="${pageContext.request.contextPath}/settings.do">Privacy & Terms</a><br>
 				<p style="color:#646464">KITRI Digital Convergence 25th<br><span class="badge badge-info">DevLink</span>&ensp;DevLink@2018</p>
 			</div>
 		</div>

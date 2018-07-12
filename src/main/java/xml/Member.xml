@@ -204,7 +204,10 @@
 	<select id="function" resultMap="picPath" parameterType="String">
 		SELECT FN_GET_DIV_KO_CHAR(#{name}) as path FROM DUAL
 	</select>
-	<select id="selectSRResult" resultMap="SearchResult" parameterType="String">
-		SELECT * FROM search WHERE nm_div LIKE '%'||#{name}||'%' 
+	<select id="selectSRResult" resultMap="SearchResult" parameterType="java.util.HashMap">
+		SELECT * FROM search WHERE nm_div LIKE '%'||#{name}||'%' AND m_no IN (SELECT frd_from FROM frd WHERE frd_to=#{myno} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from=#{myno} AND frd_status=2) AND rownum<![CDATA[<]]>6
+	</select>
+	<select id="selectSRResult2" resultMap="SearchResult" parameterType="java.util.HashMap">
+		SELECT * FROM search WHERE nm_div LIKE '%'||#{name}||'%' AND m_no NOT IN (SELECT frd_from FROM frd WHERE frd_to=#{myno} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from=#{myno} AND frd_status=2) AND rownum<![CDATA[<]]>6
 	</select>
 </mapper>

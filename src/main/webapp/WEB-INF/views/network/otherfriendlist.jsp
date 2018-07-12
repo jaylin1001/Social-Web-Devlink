@@ -126,15 +126,15 @@ width:33%;
 	<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
 		<div id=userbar>
 			<c:if test="${empty sessionScope.path }">
-             <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
+           <img src="resources/img/home/default.png" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
            </c:if>
            <c:if test="${not empty sessionScope.path }">
-            <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px"></a>
+            <img src="resources/img/profile/${sessionScope.path}" style="border-color: #D8D8D8; border-radius: 50%; width: 70px; height: 70px; float: right; position: relative; left: -32%; margin: 10px">
            </c:if>
            <div id="static1"></div>
            <div id="static2" style="background-color: white">
               <a href="${pageContext.request.contextPath}/viewmyprofile.do" style="color:inherit;text-decoration: none;"><b style="font-size: 20px">${sessionScope.name}</b></a><br />
-              <a href="${pageContext.request.contextPath}/network.do">친구신청관리</a>
+              <a href="${pageContext.request.contextPath}/network.do">친구관리</a>
            </div>
            <div id="static3">
               <h4 style="color: dodgerblue; font-size: 20px">친구 <span>${fn:length(frd)}</span>명</h4>
@@ -149,20 +149,18 @@ width:33%;
 	<div style="width:70%;display: inline-block;background-color:#F9F9F9">
 		<div id=firstbar style="box-shadow: 2px 2px 2px 2px #888888;margin-left:13%;margin-right:5%;">
 			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
-				<p style="font-size: 20px;text-align:center;"><b>내 친구 목록</b></p><hr>
+				<p style="font-size: 20px;text-align:center;"><b>친구 목록</b></p><hr>
 				<c:if test="${not empty frd }">
 					<c:forEach var="f" items="${frd}" begin="0" end="${fn:length(frd)}" step="1">
 						<div id="pFrd${f.m_no }"class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						  	<c:if test="${not empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
+							    <a href=""><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
 							</c:if>
 							<c:if test="${empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
+							    <a href=""><img class="frdPic" src="resources/img/home/default.png"></a><br>
 							</c:if>
-						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>&ensp;&ensp;&nbsp;
-							<a href=""><i class="far fa-envelope" style="font-size: 30px; margin-right: 10px; color: #008CBA;"></i></a>
-							<a href="javascript:delFrd(${f.m_no });"><i class="fas fa-trash-alt" style="font-size: 30px; margin-right: 20px; color: red"></i></a>
+						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
 						  </div>
 						</div>
 				    </c:forEach>

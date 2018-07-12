@@ -1,3 +1,4 @@
+
 <script>
 $(function(){
 	$("#nav-drop").hover(function() {
@@ -30,6 +31,14 @@ $(function(){
 	        }
 	    });
 	});
+	$('#schInputForm').submit(function(){
+		if($('#schInput').val()==''){
+			console.log('black search');
+		}else{
+			location.href='searchfrdbystr.do?str='+$('#schInput').val();
+		}
+		return false;
+	});
 });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -43,7 +52,7 @@ $(function(){
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" id="home"><a class="nav-link" href="${pageContext.request.contextPath }/home.do">Home<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item" id="network"><a class="nav-link" href="${pageContext.request.contextPath }/network.do">Network</a></li>
-			<li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li>
+			<!-- <li class="nav-item" id="jobs"><a class="nav-link" href="#">Jobs</a></li> -->
 			<li class="nav-item" id="msg"><a class="nav-link" href="#">Messaging</a></li>
         	<!-- <li class="nav-item" id="me"><a class="nav-link" href="#">Me</a></li> -->
         	<li id="nav-drop" class="nav-item dropdown">
@@ -58,7 +67,7 @@ $(function(){
 			</li>
         	<!-- <li class="nav-item" id="logout"><a class="nav-link" href="#">Logout</a></li> -->
 		</ul>
-		<form class="form-inline my-2 my-lg-0">
+		<form class="form-inline my-2 my-lg-0" id="schInputForm">
 	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="schInput">
 	      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 	    </form>

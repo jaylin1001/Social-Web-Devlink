@@ -39,5 +39,8 @@ public interface Service {
 	void addPath(Img img);
 	HashMap<String, String> getPath(String id);
 	Member login(String id, String pwd);
-	ArrayList<Search> srResult(String name);
+	ArrayList<Search> srResult(String name,String myno);
+	int howSt(ArrayList<Certification> certi, ArrayList<Education> edu, ArrayList<Exp> exp, ArrayList<Honor> honor,
+			ArrayList<Language> lang, ArrayList<Skill> skill, ArrayList<Patent> patent, ArrayList<TestScore> ts);
+	String howColor(int st);
 }

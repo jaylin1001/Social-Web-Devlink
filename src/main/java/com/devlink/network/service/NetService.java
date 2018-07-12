@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import com.devlink.dao.Frd;
+import com.devlink.dao.Member;
 import com.devlink.network.model.NetMapper;
 
 @Component("netService")
@@ -112,6 +113,7 @@ public class NetService implements Service {
 
 	@Override
 	public void addFrdReq(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("myno", myno);
 		map.put("no", no);
@@ -120,6 +122,7 @@ public class NetService implements Service {
 
 	@Override
 	public void delFrdReq(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("myno", myno);
 		map.put("no", no);
@@ -128,9 +131,58 @@ public class NetService implements Service {
 
 	@Override
 	public void delFrd(String myno, String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("myno", myno);
 		map.put("no", no);
 		mapper.deleteFrd(map);
+	}
+
+	@Override
+	public String getIdByNo(String no) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		return mapper.selectIdByNo(no);
+	}
+
+	@Override
+	public ArrayList<Member> getFrdlike(String str,String myno) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("str", str);
+		return mapper.selFrdlike(map);
+	}
+
+	@Override
+	public ArrayList<Member> getFrdinglike(String str,String myno) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("str", str);
+		return mapper.selFrdinglike(map);
+	}
+
+	@Override
+	public ArrayList<Member> getFrdinglike2(String str, String myno) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("str", str);
+		return mapper.selFrdinglike2(map);
+	}
+	
+	@Override
+	public ArrayList<Member> getFrdPlike(String str,String myno) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("myno", myno);
+		map.put("str", str);
+		return mapper.selFrdPlike(map);
+	}
+
+	@Override
+	public void delIngFrd(String frdNo) {
+		mapper = sqlSession.getMapper(NetMapper.class);
+		mapper.delIngFrd(frdNo);
 	}
 }

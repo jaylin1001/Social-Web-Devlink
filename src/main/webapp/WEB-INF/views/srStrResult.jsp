@@ -111,6 +111,7 @@ button.isIng{
 text-align:center;
 width:33%;
 }
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
@@ -118,17 +119,17 @@ width:33%;
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type='text/javascript' src="resources/js/bootstrap.js"></script>
-<script type='text/javascript' src="resources/js/devlink/network.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <link rel="stylesheet" href="resources/css/home/home.css">
 <script src="resources/js/home/home.js"></script>
+<script src="resources/js/devlink/frdchange.js"></script>
 <script defer
    src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
    integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
    crossorigin="anonymous"></script>
 </head>
 <body style="background-color:#F9F9F9">
-<%@include file="../home/devnav.jsp"%>
+<%@include file="home/devnav.jsp"%>
 <div id="contents">
 	<div style="height:100%;width: 15%;float: left;display: inline-block;background-color:#F9F9F9">
 		<div id=userbar>
@@ -143,7 +144,7 @@ width:33%;
               <a href="${pageContext.request.contextPath}/viewmyprofile.do" style="color:inherit;text-decoration: none;"><b style="font-size: 20px">${sessionScope.name}</b></a><br /> <a href="${pageContext.request.contextPath}/friendlist.do">친구 모두보기</a>
            </div>
            <div id="static3">
-              <h4 style="color: dodgerblue; font-size: 20px">친구 <span id="numberoffrd">${fn:length(frd)}</span>명</h4>
+              <h4 style="color: dodgerblue; font-size: 20px">친구 <span id="numberoffrd">${fn:length(myfrd)}</span>명</h4>
               <h5 style="font-size: 15px">친구찾기</h5>
            </div>
            <div id="static4">
@@ -154,63 +155,10 @@ width:33%;
 	</div>
 	<div style="width:70%;display: inline-block;background-color:#F9F9F9">
 		<div id=firstbar style="box-shadow: 2px 2px 2px 2px #888888;margin-left:13%;margin-right:5%;">
-		
 			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
-				<p style="font-size: 20px;text-align:center;"><b>보낸 친구신청</b></p><hr>
-				<c:if test="${not empty frdfrom }">
-					<c:forEach var="f" items="${frdfrom}" begin="0" end="${fn:length(frdfrom)}" step="1">
-						<form class="card border-light mb-3 frdDiv" style="display:inline-block;">
-						  <div class="card-body">
-						  	<c:if test="${not empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
-							</c:if>
-							<c:if test="${empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
-							</c:if>
-						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
-						    <div>
-						    	<input type="hidden" value="${f.m_no}" name="no">
-						    	<button type="submit" class="btn btn-secondary">취소</button>
-						    </div>
-						  </div>
-						</form>
-				    </c:forEach>
-				</c:if>
-				<br>
-				<c:if test="${not empty frdfrom }">
-					<a href="" style="font-size: 18px;text-align:center;">모두보기</a><br />
-				</c:if>
-			</div>
-			
-			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
-				<p style="font-size: 20px;text-align:center;"><b>받은 친구신청</b></p><hr>
-				<c:if test="${not empty frdto }">
-					<c:forEach var="f" items="${frdto}" begin="0" end="${fn:length(frdto)}" step="1">
-						<form class="card border-light mb-3 frdDiv" style="display:inline-block;" id="frdto${f.m_no}">
-						  <div class="card-body">
-						    <c:if test="${not empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
-							</c:if>
-							<c:if test="${empty f.path }">
-							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
-							</c:if>
-						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
-						    <input type="hidden" value="${f.m_no}" name="no">
-						    <button type="button" class="btn btn-info" onclick="frdtoOk(${f.m_no})">수락</button>
-						    <button type="submit" class="btn btn-warning">거절</button>
-						  </div>
-						</form>
-				    </c:forEach>
-				</c:if>
-				<br>
-				<c:if test="${not empty frdto }">
-					<a href="" style="font-size: 18px;text-align:center;">모두보기</a><br />
-				</c:if>
-			</div>
-			<div style="padding: 10px; height: 100%; border-bottom: 1px solid #D8D8D8">
-				<p style="font-size: 20px;text-align:center;"><b>아는사람 찾기</b></p><hr>
-				<c:if test="${not empty frdp }">
-					<c:forEach var="f" items="${frdp}" begin="0" end="${fn:length(frdp)}" step="1">
+				<p style="font-size: 20px;text-align:center;"><b>친구 검색 결과</b></p><hr>
+				<c:if test="${not empty frd }">
+					<c:forEach var="f" items="${frd}" begin="0" end="${fn:length(frd)}" step="1">
 						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						    <c:if test="${not empty f.path }">
@@ -221,32 +169,72 @@ width:33%;
 							</c:if>
 						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
 						    <input type="hidden" id="addReq${f.m_no}">
-							<button class ="requestFrd" id="addBtn${f.m_no}" onclick="addFrd(${f.m_no})">친구신청</button>
+						    <div id="srstrdiv${f.m_no}">
+								<button class ="requestFrd isFrd" id="btn${f.m_no}" onclick="frdchange(${f.m_no})">친구상태</button>
+							</div>
 						  </div>
 						</div>
 				    </c:forEach>
 				</c:if>
-				<%-- <c:if test="${not empty frdAll }">
-					<c:forEach var="f" items="${frdAll}" begin="0" end="${fn:length(frdAll)}" step="1">
+				<c:if test="${not empty frding}">
+					<c:forEach var="f" items="${frding}" begin="0" end="${fn:length(frding)}" step="1">
 						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						    <c:if test="${not empty f.path }">
-							    <img class="frdPic" src="resources/img/profile/${f.path }"><br>
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
 							</c:if>
 							<c:if test="${empty f.path }">
-							    <img class="frdPic" src="resources/img/home/default.png"><br>
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
 							</c:if>
-						    <b>${f.name }</b><br>
+						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
 						    <input type="hidden" id="addReq${f.m_no}">
-							<button class ="requestFrd" id="addBtn${f.m_no}" onclick="addFrd(${f.m_no})">친구신청</button>
+						    <div id="srstrdiv${f.m_no}">
+							    <button type="button" class="btn btn-info" onclick="frdtoOk(${f.m_no})">수락</button>
+							    <button type="submit" class="btn btn-warning" onclick="frdingdel(${f.m_no})">거절</button>
+							</div>
 						  </div>
 						</div>
 				    </c:forEach>
-				</c:if> --%>
-				<br>
-				<c:if test="${not empty frdto }">
-					<a href="" style="font-size: 18px;text-align:center;">모두보기</a><br />
+				</c:if>				
+				<c:if test="${not empty frding2}">
+					<c:forEach var="f" items="${frding}" begin="0" end="${fn:length(frding2)}" step="1">
+						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
+						  <div class="card-body">
+						    <c:if test="${not empty f.path }">
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
+							</c:if>
+							<c:if test="${empty f.path }">
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
+							</c:if>
+						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
+						    <input type="hidden" id="addReq${f.m_no}">
+						    <div id="srstrdiv${f.m_no}">
+								<button class ="requestFrd isIng" id="btn${f.m_no}" onclick="frdchange(${f.m_no})">친구신청중</button>
+							</div>
+						  </div>
+						</div>
+				    </c:forEach>
 				</c:if>
+				<c:if test="${not empty frdnot }">
+					<c:forEach var="f" items="${frdnot}" begin="0" end="${fn:length(frdnot)}" step="1">
+						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
+						  <div class="card-body">
+						    <c:if test="${not empty f.path }">
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/profile/${f.path }"></a><br>
+							</c:if>
+							<c:if test="${empty f.path }">
+							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
+							</c:if>
+						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>
+						    <input type="hidden" id="addReq${f.m_no}">
+						    <div id="srstrdiv${f.m_no}">
+								<button class ="requestFrd" id="btn${f.m_no}" onclick="frdchange(${f.m_no})">친구신청</button>
+							</div>
+						  </div>
+						</div>
+				    </c:forEach>
+				</c:if>
+				<br>
 			</div>
 		</div>
 		<br>

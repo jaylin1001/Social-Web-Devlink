@@ -6,6 +6,7 @@
 <title>Welcome to Mint-Office</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="resources/js/devlink/sha256.js"></script>
 <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -63,7 +64,9 @@ function login(){
    }else{
         localStorage.removeItem('id');      
    }
+   $('#shapwd').val(SHA256($('#originpwd').val()));
    document.getElementById("loginForm").submit();
+   $('#shapwd').val('');
 }
 </script>   
    
@@ -367,7 +370,8 @@ to {
          <label for="uname"><b>Username</b></label>
          <input type="text" placeholder="Enter Username" name="id" id="loginidinput"required>
          <label for="psw"><b>Password</b></label>
-         <input type="password" placeholder="Enter Password" name="pwd" required>
+         <input type="password" placeholder="Enter Password" id="originpwd"required><!-- name="pwd" -->
+         <input type="hidden" name="pwd" id="shapwd">
          <button class="btn btn-primary" type="button" onclick="login()">Login</button>
          <label> <input type="checkbox" checked="checked" id="remember"> Remember me</label>
       </div>
@@ -422,7 +426,8 @@ to {
                      </td>
                      <td class="tr">
                         <div class="form-group">
-                     <input type="password" class="join_text" id="pwd" name="pwd" placeholder="6~16자 영문 대소문자,숫자,특수문자를 사용하세요." style="width:400px">
+                     <input type="password" class="join_text" id="pwd" placeholder="6~16자 영문 대소문자,숫자,특수문자를 사용하세요." style="width:400px">
+                     <input type="hidden" class="join_text" id="joinshapwd" name="pwd">
                      <br>
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                         <span style="color:#FA5858;text-indent:10px;" id="pwdResult" style="width:400px"></span>
@@ -435,7 +440,7 @@ to {
                      </td>
                      <td class="tr">
                         <div class="form-group">
-                        <input type="password" class="join_text" id="pwd2" name="pwd2"  style="width:400px">
+                        <input type="password" class="join_text" id="pwd2" style="width:400px">
                         <br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                            <span style="color:#FA5858;text-indent:10px;" id="pwdResult2" style="width:400px"></span>
@@ -548,11 +553,12 @@ function openjoin(){
       
       });
       $("#join").click(function(){
-         if($("#idResult").text().trim() == "사용가능" && $("#pwdResult2").text() == "비밀번호가 일치합니다." &&
-               $("#emailResult").text().trim() == "올바른 이메일입니다!" ){
-            $("form").submit();
+         if($("#idResult").text().trim() == "사용가능" && $("#pwdResult2").text() == "비밀번호가 일치합니다." && $("#emailResult").text().trim() == "올바른 이메일입니다!" ){
+            $('#joinshapwd').val(SHA256($('#pwd').val()));
+        	$("form").submit();
+            $("form").reset();
+        	$('#joinshapwd').val('');
             alert("회원가입이 성공되었습니다");
-         
                    /*   $('#joinmodal').modal();
                      $(".modal-backdrop").remove(); */
                

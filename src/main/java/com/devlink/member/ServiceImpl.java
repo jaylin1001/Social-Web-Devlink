@@ -95,8 +95,9 @@ public class ServiceImpl implements Service{
 
    @Override
 	public void addSearch(Member m) {
-	   	System.out.println(m);
+	   	System.out.println("회원가입자 이름 : "+m.getName());
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		/*String last=lastChar(name);*/
 		HashMap<String,String> hmap  = memberMapper.function(m.getName());
 		String nmdiv=hmap.get("path");
 		System.out.println(nmdiv);
@@ -118,9 +119,26 @@ public class ServiceImpl implements Service{
 		HashMap<String,String> hmap = memberMapper.selectNoById(id);
 		return hmap.get("no");
 	}   
-	
+
 	private String replace(String nmdiv) {
 		String result="";
+		int index=nmdiv.indexOf("\\");
+		if(index>0) {
+			nmdiv=nmdiv.replace("\\3131","ㄱ");
+			nmdiv=nmdiv.replace("\\3134","ㄴ");
+			nmdiv=nmdiv.replace("\\3137","ㄷ");
+			nmdiv=nmdiv.replace("\\3139","ㄹ");
+			nmdiv=nmdiv.replace("\\3141","ㅁ");
+			nmdiv=nmdiv.replace("\\3142","ㅂ");
+			nmdiv=nmdiv.replace("\\3145","ㅅ");
+			nmdiv=nmdiv.replace("\\3147","ㅇ");
+			nmdiv=nmdiv.replace("\\3148","ㅈ");
+			nmdiv=nmdiv.replace("\\314A","ㅊ");
+			nmdiv=nmdiv.replace("\\314B","ㅋ");
+			nmdiv=nmdiv.replace("\\314C","ㅌ");
+			nmdiv=nmdiv.replace("\\314D","ㅍ");
+			nmdiv=nmdiv.replace("\\314E","ㅎ");
+		}
 		for(int i=0;i<nmdiv.length();i++) {
 			if(nmdiv.charAt(i)=='ᄀ') {
 				result+="ㄱ";
@@ -252,8 +270,19 @@ public class ServiceImpl implements Service{
 				result+="";
 			}else if(nmdiv.charAt(i)==' ') {
 				result+=" ";
+			}else {
+				result+=isEnglish(nmdiv.charAt(i));
 			}
 		}
 		return result;
+	}
+
+	private String isEnglish(char charAt) {
+		String uniAlphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		for(int i=0;i<uniAlphabet.length();i++) {
+			if(uniAlphabet.charAt(i)==charAt)
+				return charAt+""; 
+		}
+		return "";
 	}
 }

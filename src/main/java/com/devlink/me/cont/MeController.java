@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.devlink.dao.Certification;
 import com.devlink.dao.Education;
 import com.devlink.dao.Exp;
+import com.devlink.dao.Frd;
 import com.devlink.dao.Honor;
 import com.devlink.dao.Img;
 import com.devlink.dao.Language;
@@ -25,12 +27,15 @@ import com.devlink.dao.Patent;
 import com.devlink.dao.Skill;
 import com.devlink.dao.TestScore;
 import com.devlink.me.service.Service;
+import com.devlink.network.service.NetService;
 
 @Controller
 public class MeController {
 	@Resource(name="meService")
 	Service service;
-	
+
+	@Resource(name="netService")
+	NetService netService;
 	/*@RequestMapping(value="/viewmyprofile", method=RequestMethod.GET)
 	public String viewMyProfile2() {
 		return "me/viewMyProfile";
@@ -38,10 +43,16 @@ public class MeController {
 
 	@RequestMapping(value="/viewmyprofile.do", method=RequestMethod.GET)
 	public ModelAndView viewIntro(HttpServletRequest req) {
-		
+		HttpSession session = req.getSession(false);
+		if(session==null)
+			return new ModelAndView("index");
+		else{
+			if(req.getSession(false).getAttribute("id")==null)
+				return new ModelAndView("index");
+		}
 		ModelAndView mav = new ModelAndView("me/viewMyProfile");
 		
-		String id=(String) req.getSession(false).getAttribute("id");
+		String id=(String)session.getAttribute("id");
 		Member m = service.getIntro(id);
 		ArrayList<Certification> certi=service.getCerti(id);
 		ArrayList<Education> edu=service.getEdu(id);
@@ -51,8 +62,11 @@ public class MeController {
 		ArrayList<Skill> skill=service.getSkill(id);
 		ArrayList<Patent> patent =service.getPatent(id);
 		ArrayList<TestScore> ts = service.getTestScore(id);
-		int st=howSt(certi,edu,exp,honor,lang,skill,patent,ts);
-		String color = howColor(st);
+		int st=service.howSt(certi,edu,exp,honor,lang,skill,patent,ts);
+		String color = service.howColor(st);
+		String no=(String) req.getSession(false).getAttribute("no");
+		ArrayList<Frd> frd= netService.getFrd(no);
+		mav.addObject("frd",frd);
 		mav.addObject("m", m);
 		mav.addObject("certi", certi);
 		mav.addObject("edu", edu);
@@ -196,46 +210,5 @@ public class MeController {
 		img.setNo(service.getNo(id));
 		service.addPath(img);
 		return "redirect:viewmyprofile.do";
-	}
-
-	
-	private int howSt(ArrayList<Certification> certi, ArrayList<Education> edu, ArrayList<Exp> exp,
-			ArrayList<Honor> honor, ArrayList<Language> lang, ArrayList<Skill> skill, ArrayList<Patent> patent,
-			ArrayList<TestScore> ts) {
-		int count=0;
-		if(certi.size()>0)
-			count++;
-		if(edu.size()>0)
-			count++;
-		if(exp.size()>0)
-			count++;
-		if(honor.size()>0)
-			count++;
-		if(lang.size()>0)
-			count++;
-		if(skill.size()>0)
-			count++;
-		if(patent.size()>0)
-			count++;
-		if(ts.size()>0)
-			count++;
-		count=count*100/8;
-		return count;
-	}
-
-	private String howColor(int st) {
-		String color;
-		if(st>90) {
-			color=" bg-success";
-		}else if(st>74) {
-			color=" bg-info";
-		}else if(st>49) {
-			color=" ";
-		}else if(st>24) {
-			color=" bg-warning";
-		}else {
-			color=" bg-danger";
-		}
-		return color;
 	}
 }

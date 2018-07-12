@@ -61,5 +61,6 @@ public interface MemberMapper {
 	
 	void insertSearch(Search s);
 	HashMap<String, String> function(String name);
-	ArrayList<Search> selectSRResult(String name);
+	ArrayList<Search> selectSRResult(HashMap<String, String> map);
+	ArrayList<Search> selectSRResult2(HashMap<String, String> map);
 }

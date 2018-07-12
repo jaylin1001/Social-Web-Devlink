@@ -3,7 +3,7 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.devlink.network.model.NetMapper">
- 	<resultMap id="MemberResult" type="com.devlink.dao.Member">
+	<resultMap id="MemberResult" type="com.devlink.dao.Member">
 		<result column="m_no" property="m_no" />
 		<result column="id" property="id" />
 		<result column="pwd" property="pwd" />
@@ -196,5 +196,23 @@ WHERE sumno NOT IN (#{no})
 	</delete>
 	<delete id="deleteFrd" parameterType="java.util.HashMap">
 		DELETE frd WHERE frd_no IN (SELECT frd_no FROM frd WHERE ((frd_from=#{no} AND frd_to=#{myno}) OR (frd_from=#{myno} AND frd_to=#{no})) AND frd_status=2 AND rownum=1)
+	</delete>
+	<select id="selectIdByNo" resultType="String" parameterType="String">
+		SELECT id FROM member WHERE m_no=#{no}
+	</select>
+	<select id="selFrdlike" resultMap="MemberResult" parameterType="java.util.HashMap">
+		SELECT * FROM member WHERE name LIKE '%'||#{str}||'%' AND m_no IN (SELECT frd_from FROM frd WHERE frd_to=#{myno} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from=#{myno} AND frd_status=2)
+	</select>
+	<select id="selFrdinglike" resultMap="MemberResult" parameterType="java.util.HashMap">
+		SELECT * FROM member WHERE name LIKE '%'||#{str}||'%' AND m_no IN (SELECT frd_from FROM frd WHERE frd_to=#{myno} AND frd_status=1)
+	</select>
+	<select id="selFrdinglike2" resultMap="MemberResult" parameterType="java.util.HashMap">
+		SELECT * FROM member WHERE name LIKE '%'||#{str}||'%' AND m_no IN (SELECT frd_to FROM frd WHERE frd_from=#{myno} AND frd_status=1)
+	</select>
+	<select id="selFrdPlike" resultMap="MemberResult" parameterType="java.util.HashMap">
+		SELECT * FROM member WHERE name LIKE '%'||#{str}||'%' AND m_no NOT IN (SELECT frd_from FROM frd WHERE frd_to=#{myno} UNION SELECT frd_to FROM frd WHERE frd_from=#{myno} UNION SELECT #{myno} FROM DUAL)
+	</select>
+	<delete id="delIngFrd" parameterType="String">
+		DELETE frd WHERE frd_no=#{frdNo}
 	</delete>
 </mapper>

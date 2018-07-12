@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.devlink.dao.Frd;
+import com.devlink.dao.Member;
 
 public interface NetMapper {
 	ArrayList<Frd> selectFrdTo(String no);
@@ -20,4 +21,10 @@ public interface NetMapper {
 	HashMap<String, String> getIngFrdToMeNo(HashMap<String, String> map);
 	HashMap<String, String> getFrdFromMeNo(HashMap<String, String> map);
 	void deleteFrd(HashMap<String, String> map);
+	String selectIdByNo(String no);
+	ArrayList<Member> selFrdlike(HashMap<String, String> map);
+	ArrayList<Member> selFrdinglike(HashMap<String, String> map);
+	ArrayList<Member> selFrdinglike2(HashMap<String, String> map);
+	ArrayList<Member> selFrdPlike(HashMap<String, String> map);
+	void delIngFrd(String frdNo);
 }

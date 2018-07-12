@@ -1,5 +1,7 @@
 package com.devlink.member;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.devlink.dao.Member;
+import com.devlink.util.SHA2Util;
 
 @Controller
 public class MemController {
@@ -30,7 +33,14 @@ public class MemController {
 	
 	@RequestMapping(value = "/join.do")
 	public String join(Member m, HttpServletRequest req) {
-		m.setPwd(pwdPrivacy(m.getPwd()));
+		String shapwd="";
+		try {
+			shapwd=SHA2Util.encrypt(m.getPwd(), "SHA-256");
+			m.setPwd(shapwd);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		service.addMember(m);
 		System.out.println("회원가입은 완료");
 		String no = service.getNo(m.getId());
@@ -40,7 +50,7 @@ public class MemController {
 		service.addSearch(m);
 		return "index";				
 	}
-
+/*
 private String pwdPrivacy(String pwd) {
 	String result ="";
 	for(int i=0;i<pwd.length();i++){
@@ -59,7 +69,7 @@ private String pwdPrivacy(String pwd) {
 		}
 	}
 	return result;
-}
+}*/
 
 @RequestMapping(value = "/idCheck.do")
    public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value = "id") String id) {

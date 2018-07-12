@@ -1,5 +1,6 @@
 package com.devlink;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.devlink.dao.Frd;
 import com.devlink.dao.Member;
 import com.devlink.dao.Search;
 import com.devlink.me.service.Service;
+import com.devlink.util.SHA2Util;
 
 /**
  * Handles requests for the application home page.
@@ -43,11 +46,18 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/searchrecommand.do",method = RequestMethod.POST)
-	public ModelAndView searchRecommand(@RequestParam(value="name")String name) {
-		System.out.println(name);
+	public ModelAndView searchRecommand(HttpServletRequest req, @RequestParam(value="name")String name) {
+		HttpSession session = req.getSession(false);
+		if(session==null)
+			return new ModelAndView("index");
+		else{
+			if(req.getSession(false).getAttribute("id")==null)
+				return new ModelAndView("index");
+		}
 		ModelAndView mav = new ModelAndView("srResult");
+		String no=(String) req.getSession(false).getAttribute("no");
 		if(name!=null&&!name.equals("")) {
-			ArrayList<Search> srResult = service.srResult(name);
+			ArrayList<Search> srResult = service.srResult(name,no);
 	    	mav.addObject("srResult", srResult);
 		}
 		return mav;
@@ -55,8 +65,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest req,@RequestParam(value = "id") String id,@RequestParam(value = "pwd") String pwd) {
-		String rPwd=rpwd(pwd);
-		Member m=service.login(id,rPwd);
+		String shapwd="";
+		try {
+			shapwd=SHA2Util.encrypt(pwd, "SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Member m=service.login(id,shapwd);
 		if(m!=null) {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
@@ -75,7 +91,7 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
-	private String rpwd(String pwd) {
+	/*private String rpwd(String pwd) {
 		String result ="";
 		for(int i=0;i<pwd.length();i++){
 			char c=pwd.charAt(i);
@@ -93,7 +109,7 @@ public class HomeController {
 			}
 		}
 		return result;
-	}
+	}*/
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpServletRequest req) {
@@ -122,10 +138,6 @@ public class HomeController {
 		return "home/home";
 	}
 	
-	@RequestMapping(value="/jobs", method=RequestMethod.GET)
-	public String jobs() {
-		return "me/viewMyProfile";
-	}
 	@RequestMapping(value="/msg", method=RequestMethod.GET)
 	public String msg() {
 		return "me/viewMyProfile";

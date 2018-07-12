@@ -3,6 +3,7 @@ package com.devlink.network.service;
 import java.util.ArrayList;
 
 import com.devlink.dao.Frd;
+import com.devlink.dao.Member;
 
 public interface Service {
 	ArrayList<Frd> getFrdTo(String no);
@@ -19,4 +20,10 @@ public interface Service {
 	String getIngFrdToMeNo(String myno, String no);
 	String getFrdFromMeNo(String myno, String no);
 	void delFrd(String myno, String no);
+	String getIdByNo(String no);
+	ArrayList<Member> getFrdlike(String str,String myno);
+	ArrayList<Member> getFrdinglike(String str,String myno);
+	ArrayList<Member> getFrdinglike2(String str, String myno);
+	ArrayList<Member> getFrdPlike(String str,String myno);
+	void delIngFrd(String frdNo);
 }
