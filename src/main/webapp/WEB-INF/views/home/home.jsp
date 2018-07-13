@@ -552,5 +552,15 @@ window.onclick = function(event) {
 }
 </script>
 <%@include file="./devfoot.jsp"%>
+<style>
+footer {
+	display: table-row;
+	width: 100%;
+	height: 1px;
+	background-color: grey;
+	text-align: center;
+	color: #A4FFDE;
+}
+</style>
 </body>
 </html>
