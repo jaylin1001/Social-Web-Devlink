@@ -29,15 +29,17 @@ $(function(){
 	        	$('#rcmdBar').html(data);
 	        }
 	    });
-	});
-	$('#schInputForm').submit(function(){
+	}); 
+	$('#schInputForm').submit(function(e){
 		if($('#schInput').val()==''){
 			console.log('black search');
 		}else{
-			location.href='searchfrdbystr.do?str='+$('#schInput').val();
+			location.href='${pageContext.request.contextPath }/searchfrdbystr.do?str='+$('#schInput').val();
 		}
+	    e.preventDefault(); // Stop the submit here!
 		return false;
-	});
+	}); 
+
 });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

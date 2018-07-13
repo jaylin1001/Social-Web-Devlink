@@ -197,7 +197,7 @@ width:33%;
 				    </c:forEach>
 				</c:if>				
 				<c:if test="${not empty frding2}">
-					<c:forEach var="f" items="${frding}" begin="0" end="${fn:length(frding2)}" step="1">
+					<c:forEach var="f" items="${frding2}" begin="0" end="${fn:length(frding2)}" step="1">
 						<div class="card border-light mb-3 frdDiv" style="display:inline-block;">
 						  <div class="card-body">
 						    <c:if test="${not empty f.path }">

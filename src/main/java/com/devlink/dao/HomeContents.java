@@ -1,7 +1,5 @@
 package com.devlink.dao;
 
-import java.util.ArrayList;
-
 public class HomeContents {
 	private String doc_num;
 	private String m_no;

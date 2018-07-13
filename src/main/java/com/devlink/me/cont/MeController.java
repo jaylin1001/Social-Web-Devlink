@@ -1,6 +1,9 @@
 package com.devlink.me.cont;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -179,10 +182,44 @@ public class MeController {
 	
 	@RequestMapping(value="/proform.do")
 	public String proForm(HttpServletRequest req, Img img) {
+		HttpSession session = req.getSession(false);
+		if(session==null)
+			return "redirect:/";
+		else{
+			if(req.getSession(false).getAttribute("id")==null)
+				return "redirect:/";
+		}
+		String id=(String) session.getAttribute("id");
+		HashMap<String, String> isFile=null;
+		isFile=service.getPath(id);
+		if(isFile!=null) {
+			File preFile =new File("D:\\javaEE\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\devlink\\resources\\img\\profile\\"+isFile.get("path"));
+			File preFile2 =new File("C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+isFile.get("path"));//원드라이브쪽
+			if(preFile.exists() ){
+	            if(preFile.delete()){
+	                System.out.println("파일삭제 성공");
+	            }else{
+	                System.out.println("파일삭제 실패");
+	            }
+	        }else{
+	            System.out.println("파일이 존재하지 않습니다.");
+	        }
+			//원드라이브쪽 삭제
+			if(preFile2.exists() ){
+	            if(preFile2.delete()){
+	                System.out.println("파일삭제 성공");
+	            }else{
+	                System.out.println("파일삭제 실패");
+	            }
+	        }else{
+	            System.out.println("파일이 존재하지 않습니다.");
+	        }
+		}
 		MultipartFile file = img.getFile();
-		String id=(String) req.getSession(false).getAttribute("id");
+		MultipartFile file2 = img.getFile();
 		String name=id+file.getOriginalFilename().substring((file.getOriginalFilename()).indexOf("."));
-		String path="C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+name;
+		String path="D:\\javaEE\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\devlink\\resources\\img\\profile\\"+name;
+		String path2="C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+name;
 		/*String path = "resources\\img\\profile\\" + name;*/
 		img.setPath(name);
 		File f = new File(path);
@@ -193,22 +230,31 @@ public class MeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		HashMap<String, String> isFile=null;
-		isFile=service.getPath(id);
-		if(isFile!=null) {
-			File preFile =new File("C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+isFile.get("path"));
-			if(preFile.exists() ){
-	            if(preFile.delete()){
-	                System.out.println("파일삭제 성공");
-	            }else{
-	                System.out.println("파일삭제 실패");
-	            }
-	        }else{
-	            System.out.println("파일이 존재하지 않습니다.");
-	        }
-		}
 		img.setNo(service.getNo(id));
 		service.addPath(img);
+		session.setAttribute("path", name);
+		//파일복사
+		File in=new File("D:\\javaEE\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\devlink\\resources\\img\\profile\\"+name);
+		File out=new File("C:\\Users\\KITRI\\OneDrive\\javaEE\\project\\devlink\\src\\main\\webapp\\resources\\img\\profile\\"+name);
+	    try {
+			FileInputStream input=new FileInputStream(in);
+		    FileOutputStream output=new FileOutputStream(out);
+		    int data=0;		    
+		    while(data!=-1){
+		    	data=input.read();
+				output.write(data);
+		    }		  
+		    if(input!=null)
+		    	input.close();
+		    if(output!=null)
+		    	output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		return "redirect:viewmyprofile.do";
 	}
 }

@@ -41,7 +41,7 @@
 	AND f.frd_to=m.m_no
 	</select>
 	<select id="selectFrdP" resultMap="FrdResult" parameterType="String">
-	SELECT *
+SELECT *
 FROM (SELECT m_no,name,path
 FROM member m
 WHERE m_no NOT IN #{no}
@@ -121,6 +121,153 @@ FROM
 	FROM member m, frd f
 	WHERE f.frd_to=#{no}
 	AND f.frd_from=m.m_no))
+	UNION<!-- 여기서부터 -->
+SELECT m_no,name,path
+FROM member m
+WHERE m_no NOT IN #{no}
+AND m_no NOT IN (
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_from=#{no}
+AND f.frd_to=m.m_no
+UNION
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_to=#{no}
+AND f.frd_from=m.m_no
+)
+AND m_no NOT IN (
+SELECT sumno
+FROM
+(
+SELECT frd_from sumno
+FROM frd
+WHERE frd_to NOT IN (
+SELECT frd_from FROM frd WHERE frd_to = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2
+)
+UNION
+SELECT frd_to sumno
+FROM frd
+WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
+WHERE sumno NOT IN (#{no})
+)
+UNION
+SELECT m_no,name,path
+FROM member
+WHERE m_no NOT IN (SELECT #{no} FROM dual)
+AND m_no NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} UNION SELECT frd_from FROM frd WHERE frd_to=#{no})
+AND m_no NOT IN(
+SELECT m_no
+FROM (SELECT m_no
+FROM member m
+WHERE m_no NOT IN #{no}
+AND m_no NOT IN (
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_from=#{no}
+AND f.frd_to=m.m_no
+UNION
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_to=#{no}
+AND f.frd_from=m.m_no
+)
+AND m_no NOT IN (
+SELECT sumno
+FROM
+(
+SELECT frd_from sumno
+FROM frd
+WHERE frd_to NOT IN (
+SELECT frd_from FROM frd WHERE frd_to = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2
+)
+UNION
+SELECT frd_to sumno
+FROM frd
+WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
+WHERE sumno NOT IN (#{no})
+))
+UNION
+SELECT *
+FROM 
+(SELECT *
+	FROM (
+	SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_from in (SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_from=#{no}
+	AND f.frd_to=m.m_no
+	UNION
+	SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_to=#{no}
+	AND f.frd_from=m.m_no)
+	AND f.frd_status=2
+	AND f.frd_to=m.m_no
+	UNION
+	SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_to in (SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_from=#{no}
+	AND f.frd_to=m.m_no
+	UNION
+	SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_to=#{no}
+	AND f.frd_from=m.m_no)
+	AND f.frd_status=2
+	AND f.frd_from=m.m_no
+	UNION
+	SELECT m.m_no
+	FROM member m, profile p
+	WHERE p.m_no=m.m_no
+	AND p.pr_kind=2
+	AND REGEXP_LIKE (p.pr_title ,(SELECT pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE pr_kind=2 AND m_no=#{no}) WHERE n=1)||
+								 (SELECT pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE pr_kind=2 AND m_no=#{no}) WHERE n=2)||
+								 (SELECT pr_title FROM (SELECT pr_title, rownum n FROM profile WHERE pr_kind=2 AND m_no=#{no}) WHERE n=3)))
+	WHERE m_no NOT IN #{no}
+	AND m_no NOT IN (SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_from=#{no}
+	AND f.frd_to=m.m_no
+	UNION
+	SELECT m.m_no
+	FROM member m, frd f
+	WHERE f.frd_to=#{no}
+	AND f.frd_from=m.m_no))
+	UNION<!-- 여기서부터 -->
+SELECT m_no
+FROM member m
+WHERE m_no NOT IN #{no}
+AND m_no NOT IN (
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_from=#{no}
+AND f.frd_to=m.m_no
+UNION
+SELECT m.m_no
+FROM member m, frd f
+WHERE f.frd_to=#{no}
+AND f.frd_from=m.m_no
+)
+AND m_no NOT IN (
+SELECT sumno
+FROM
+(
+SELECT frd_from sumno
+FROM frd
+WHERE frd_to NOT IN (
+SELECT frd_from FROM frd WHERE frd_to = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2
+)
+UNION
+SELECT frd_to sumno
+FROM frd
+WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
+WHERE sumno NOT IN (#{no})
+)
+) 
 	</select>
 	<select id="selectFrd" resultMap="FrdResult" parameterType="String">
 	SELECT m.m_no, m.name, m.path
@@ -165,7 +312,7 @@ FROM frd
 WHERE frd_from NOT IN (SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2 UNION SELECT frd_to FROM frd WHERE frd_from = #{no} AND frd_status=2))
 WHERE sumno NOT IN (#{no})
 )
-	</select>
+</select>
 	<select id="selectIngFrdNo" resultMap="FrdNo" parameterType="java.util.HashMap">
 		SELECT frd_no FROM frd WHERE frd_to=#{myno} AND frd_from=#{no} AND frd_status=1
 		UNION

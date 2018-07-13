@@ -168,7 +168,15 @@ public class MeService implements Service {
 	@Override
 	public HashMap<String, String> getPath(String id) {
 		mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.selectPath(id);
+		/*return mapper.selectPath(id);*/
+		HashMap<String, String> map=mapper.selectPath(id);
+		if(map!=null) {
+			if(map.get("path").length()>0)
+				return map;
+			else
+				return null;
+		}
+		return null;
 	}
 
 	@Override

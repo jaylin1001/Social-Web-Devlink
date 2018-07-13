@@ -50,7 +50,7 @@ public class NetController {
 		mav.addObject("frdfrom", frdfrom);
 		mav.addObject("frdp", frdp);
 		mav.addObject("frd",frd);
-/*		ArrayList<Frd> frdAll = service.getFrdAll(no);
+		/*ArrayList<Frd> frdAll = service.getFrdAll(no);
 		mav.addObject("frdAll",frdAll);*/
 /*		if(frdp.size()==0) {
 			ArrayList<Frd> frdAll = service.getFrdAll(no);

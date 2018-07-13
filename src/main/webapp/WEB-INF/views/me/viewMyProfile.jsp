@@ -136,11 +136,11 @@ display:inline;
 			<div class="card-header" style="padding:0px;border: none;"><img src="resources/img/me/profileback4.png" style="border: none;width:100%;"></div>
 			    <div class="card border-light">
 				  <div class="card-header">Edit intro</div>
-				    <table>
+				    <table style="width:100%">
 				    	<tr>
 				    		<td>
-				    		<c:if test="${empty m.path}"><img src="resources/img/me/default.png" style="float:left;max-height: 60%;max-width:100;max-height:150px"></c:if>
-				    		<c:if test="${not empty m.path}"><img src="resources/img/profile/${m.path}" style="float:left;max-height: 60%;"></c:if>
+				    		<c:if test="${empty m.path}"><img src="resources/img/me/default.png" style="float:left;;max-height:190px"></c:if>
+				    		<c:if test="${not empty m.path}"><img src="resources/img/profile/${m.path}" style="float:left;max-height:190px"></c:if>
 				    		</td>
 				    		<td colspan="2">
 								  <div class="card-body">

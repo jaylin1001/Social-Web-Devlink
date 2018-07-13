@@ -161,7 +161,7 @@ width:33%;
 							    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}"><img class="frdPic" src="resources/img/home/default.png"></a><br>
 							</c:if>
 						    <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${f.m_no}" style="color:inherit;text-decoration: none;"><b>${f.name }</b></a><br>&ensp;&ensp;&nbsp;
-							<a href=""><i class="far fa-envelope" style="font-size: 30px; margin-right: 10px; color: #008CBA;"></i></a>
+							<a href="${pageContext.request.contextPath }/msg/msgmain.do"><i class="far fa-envelope" style="font-size: 30px; margin-right: 10px; color: #008CBA;"></i></a>
 							<a href="javascript:delFrd(${f.m_no });"><i class="fas fa-trash-alt" style="font-size: 30px; margin-right: 20px; color: red"></i></a>
 						  </div>
 						</div>

@@ -46,8 +46,8 @@ function frdingdel(no){
 }
 
 function frdchange(no){
-	var $button = $('$btn'+no);
-	if($button.hasClass('ifFrd')==true){
+	var $button = $('#btn'+no);
+	if($button.hasClass('isFrd')==true){
 		 $.ajax({      
 		        type:'POST',  
 		        url:'delfrdchg.do',      
@@ -61,6 +61,7 @@ function frdchange(no){
 		        }
 		 });
 	}else if($button.hasClass('isIng')==true){//받은거 지우면 됨
+		console.log('ingchg');
 		$.ajax({      
 	        type:'POST',
 	        url:'ingfrdchg.do',      
