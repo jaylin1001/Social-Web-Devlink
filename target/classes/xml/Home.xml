@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="doccmtselect" resultMap="docselect" parameterType="String">
-		select c.doc_num, m.name as m_no, c.cmt, c.cmt_level, m.path as path
+		select c.doc_num, m.name as m_name, c.cmt, c.cmt_level, m.path as path, m.m_no
 		from cmt c, member m 
 		where m.m_no=c.w_no
 		and doc_num =#{doc_num}

@@ -282,12 +282,22 @@ $(function() {
 				<div id="contentlist${hc.doc_num}"
 					style="margin-left: 25%; margin-right: 15%; background-color: white; box-shadow: 2px 2px 2px 2px #888888">
 					<div style="padding: 10px; border-bottom: 1px solid #D8D8D8">						
+					  <c:if test="${hc.m_no eq sessionScope.no}">
+					  <c:if test="${empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+			          <c:if test="${not empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+					</c:if>
+					<c:if test="${hc.m_no ne sessionScope.no}">
 					  <c:if test="${empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
 			          <c:if test="${not empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
-			          </c:if>						
+			          </c:if>
+			       </c:if>					
 					  <b style="font-size: 20px;">${hc.m_name}</b><br />
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;${hc.date }						
 					</div>
@@ -306,12 +316,22 @@ $(function() {
 					</div>
 						<form action="${pageContext.request.contextPath}/cmtwrite.do" method = "post">
 					<div class="comment_field${hc.doc_num }" style="visibility: hidden; height:0px;background-color:#DCE3EC;">
-					 <c:if test="${empty hc.path }">
+					 <c:if test="${hc.m_no eq sessionScope.no}">
+					  <c:if test="${empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+			          <c:if test="${not empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+					</c:if>
+					<c:if test="${hc.m_no ne sessionScope.no}">
+					  <c:if test="${empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
 			          <c:if test="${not empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
+			       </c:if>
 					<input type="text" name="cmt" id="cmt" style="margin-top:5px;margin-left: 10px;width:78%; height:45px;">
 					<button id="cmtbtn" type="submit" style="background-color:#DCE3EC;margin-left:7px;border-radius: 10px; height: 30px; width: 70px; padding: 5px">댓글달기</button>
 					<input type="text" name="doc_num" value="${hc.doc_num}" style="visibility:hidden; height:0px">
@@ -329,12 +349,22 @@ $(function() {
 				<div id="contentlist${hc.doc_num}"
 					style="margin-left: 25%; margin-right: 15%; margin-top: 15px; background-color: white; box-shadow: 2px 2px 2px 2px #888888">
 					<div style="padding: 10px; border-bottom: 1px solid #D8D8D8">
+					  <c:if test="${hc.m_no eq sessionScope.no}">
+					  <c:if test="${empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+			          <c:if test="${not empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+					</c:if>
+					<c:if test="${hc.m_no ne sessionScope.no}">
 					  <c:if test="${empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
 			          <c:if test="${not empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
+			       </c:if>
 						<b style="font-size: 20px">${hc.m_name}</b><br />
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;${hc.date}
 						<!-- <i class="fas fa-align-justify" 
@@ -354,12 +384,22 @@ $(function() {
 					</div>
 					<form action="${pageContext.request.contextPath}/cmtwrite.do" method = "post">
 					<div class="comment_field${hc.doc_num }" style="visibility: hidden; height:0px;background-color:#DCE3EC;">
+					  <c:if test="${hc.m_no eq sessionScope.no}">
+					  <c:if test="${empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+			          <c:if test="${not empty hc.path }">
+			           <a href="${pageContext.request.contextPath}/viewmyprofile.do"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
+			          </c:if>
+					</c:if>
+					<c:if test="${hc.m_no ne sessionScope.no}">
 					  <c:if test="${empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/home/default.png" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
 			          <c:if test="${not empty hc.path }">
 			           <a href="${pageContext.request.contextPath}/viewotherprofile.do?no=${hc.m_no}"><img src="resources/img/profile/${hc.path}" style="border: 2px solid gray; border-radius: 50%; width: 50px; height: 50px"></a>
 			          </c:if>
+			       </c:if>
 					<input type="text" name="cmt" id="cmt" style="margin-top:5px;margin-left: 10px;width:78%; height:45px;">
 					<button id="cmtbtn" type="submit" style="background-color:#DCE3EC;margin-left:7px;border-radius: 10px; height: 30px; width: 70px; padding: 5px">댓글달기</button>
 					<input type="text" name="doc_num" value="${hc.doc_num}" style="visibility:hidden; height:0px">
